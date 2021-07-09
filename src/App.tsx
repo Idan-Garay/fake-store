@@ -6,7 +6,7 @@ import { Counter } from './Counter';
 export const App = () => {
     return  (
         <>
-            <h1>React Typescript Webpack Starter Template - {process.env.NODE_ENV}</h1>
+            <h1>Edited1 React Typescript Webpack Starter Template - {process.env.NODE_ENV}</h1>
             <Counter />
         </>
     )

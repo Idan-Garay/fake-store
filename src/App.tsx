@@ -4,11 +4,11 @@ import './style.css'
 import { Counter } from './Counter'
 
 export const App = () => {
-  // const name ="idan"
+  const name = 'idan'
   return (
     <>
       <h1>
-        Edited1 React Typescript Webpack Starter Template -
+        Edited1 React Typescript Webpack Starter Template - {name}
         {process.env.NODE_ENV}
       </h1>
       <Counter />

@@ -1,7 +1,8 @@
 import {React, StrictMode, useState, useEffect} from 'react'
 import ReactDOM from 'react-dom'
 import Results from './components/Results'
-import SearchParams from './components/SearchParams'
+// import SearchParams from './components/SearchParams'
+import Categories from './components/Categories'
 
 const App = () => {
   const [loaded, setLoaded] = useState(false)
@@ -50,9 +51,7 @@ const App = () => {
 
   return (
     <div className="px-4 sm:px-6 lg:px-4 xl:px-6 pt-4 pb-4 sm:pb-6 lg:pb-4 xl:pb-6 space-y-4 border-dotted">
-      {(categories.length? 
-        <SearchParams categories={categories} setFilter={setFilter} handleChange={handleChange} handleSubmit={handleSubmit} filter={filter}/>
-        : "...loading")}
+      <Categories />
       <Results loaded={loaded} products={result} />
     </div>
   )

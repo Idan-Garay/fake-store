@@ -9,6 +9,7 @@ import {
 import Results from './components/Results'
 import Categories from './components/Categories'
 import {ErrorBoundary} from 'react-error-boundary'
+import ProductDetail from './components/ProductDetail'
 
 
 const App = () => {
@@ -76,15 +77,19 @@ const App = () => {
         </nav>
 
         <Switch>
-          <Route path="/store">
+          <Route exact path="/">
+            <h1>This is Home page</h1>
+          </Route>
+          <Route exact path="/store">
             <Categories handleClick={handleClick}/>
             <Results loaded={loaded} products={products} />
           </Route>
           <Route path="/user">
             <h1>This is user page</h1>
           </Route>
-          <Route path="/">
-            <h1>This is Home page</h1>
+
+          <Route exact path="/store/:id">
+            <ProductDetail />
           </Route>
         </Switch>
       </Router>

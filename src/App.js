@@ -24,6 +24,28 @@ const App = () => {
     setLoaded(false)
   }
 
+  const handleAddToCart = product => {
+    if (cart) {
+      const products = cart.products
+      let found = false
+
+      for (let prod of products) {
+        if (prod.productId === product.id) {
+          prod.quantity += 1
+          found = true
+          break;
+        }
+      }
+
+      if (!found) {
+        cart.products.push({"productId": product.id, "quantity": 1}) 
+      }
+      setCart(cart)
+    } else {
+      console.log('No Cart Found')
+    }
+  }
+
   const ErrorFallback = ({error}) => {
     return (
       <div>
@@ -92,7 +114,7 @@ const App = () => {
           </Route>
           <Route exact path="/store">
             <Categories handleClick={handleClick}/>
-            <Results loaded={loaded} products={products} />
+            <Results handleAddToCart={handleAddToCart} loaded={loaded} products={products} />
           </Route>
           <Route exact path="/carts">
             <h1>This is Carts page</h1>

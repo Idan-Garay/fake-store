@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import Cart from '../components/Cart'
 
 const Carts = (props) => {
   const [carts, setCarts] = useState([])
@@ -16,15 +17,12 @@ const Carts = (props) => {
   }, [carts])
 
   return (
-    <div className="border-black">
+    <div className="border-black flex flex-wrap space-x-4 space-y-4  box-border">
       {(status === 'idle')?
         <p>Loading...</p>
       : carts.map(data => (
         <div key={`cart-${data.id}-${data.userId}`} >
-          <div className='border-1 border-black'>
-            <button className='bg-blue-500 p-1 rounded w-15 text-white' onClick={() => {props.setCart(data)}}>Use</button>
-          </div>
-          <pre>{JSON.stringify(data)}</pre>
+          <Cart handleUse={() => {props.setCart(data)}} cart={data} />
         </div>
       ))
       }

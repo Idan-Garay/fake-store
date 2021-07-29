@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom"
 
+const handleClick = e => {
+  cartExists
+}
+
 const Product = (props) => {
-  const {id, image, title, category, price, description} = props.product
+  const {id, title, price} = props.product
 
   return (
     <div className="product w-10/12 shadow mt-5">

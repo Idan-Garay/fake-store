@@ -13,6 +13,7 @@ import ProductDetail from './components/ProductDetail'
 import Carts from './pages/Carts'
 
 const App = () => {
+  const [cart, setCart] = useState(null)
   const [loaded, setLoaded] = useState(false)
   const [products, setProducts] = useState([])
   const [category, setCategory] = useState('all')
@@ -71,6 +72,17 @@ const App = () => {
             <li className="mr-3">
               <Link to="/carts" className="inline-block border border-blue-500 rounded py-1 px-3 bg-blue-500 text-white" >Carts</Link>
             </li>
+            <div className="flex-auto justify-end">
+              <li className="w-20">
+                {cart? 
+                  <>
+                    <p>Cart</p> 
+                    <h4>{`cart-${cart.id}`}</h4>
+                  </>
+                : null
+                }
+              </li>
+            </div>
           </ul>
         </nav>
 
@@ -84,7 +96,7 @@ const App = () => {
           </Route>
           <Route exact path="/carts">
             <h1>This is Carts page</h1>
-            <Carts />
+            <Carts setCart={setCart} />
           </Route>
 
           <Route exact path="/store/:id">

@@ -16,7 +16,7 @@ const Product = (props) => {
         </Link>
         <div className="flex-auto flex space-x-3">
           <button className="w-1/2 flex items-center justify-center rounded-md bg-black text-white" type="submit">Buy now</button>
-          <button className="w-1/2 flex items-center justify-center rounded-md border border-gray-300" type="button">Add to bag</button>
+          <button className="w-1/2 flex items-center justify-center rounded-md border border-gray-300" type="button">Add to Cart</button>
         </div>
       </form>
     </div>

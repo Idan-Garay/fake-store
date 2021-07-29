@@ -10,7 +10,7 @@ import Results from './components/Results'
 import Categories from './components/Categories'
 import {ErrorBoundary} from 'react-error-boundary'
 import ProductDetail from './components/ProductDetail'
-
+import Carts from './pages/Carts'
 
 const App = () => {
   const [loaded, setLoaded] = useState(false)
@@ -69,7 +69,7 @@ const App = () => {
               <Link to="/store" className="inline-block border border-blue-500 rounded py-1 px-3 bg-blue-500 text-white" >Store</Link>
             </li>
             <li className="mr-3">
-              <Link to="/user" className="inline-block border border-blue-500 rounded py-1 px-3 bg-blue-500 text-white" >User</Link>
+              <Link to="/carts" className="inline-block border border-blue-500 rounded py-1 px-3 bg-blue-500 text-white" >Carts</Link>
             </li>
           </ul>
         </nav>
@@ -82,8 +82,9 @@ const App = () => {
             <Categories handleClick={handleClick}/>
             <Results loaded={loaded} products={products} />
           </Route>
-          <Route exact path="/user">
-            <h1>This is user page</h1>
+          <Route exact path="/carts">
+            <h1>This is Carts page</h1>
+            <Carts />
           </Route>
 
           <Route exact path="/store/:id">

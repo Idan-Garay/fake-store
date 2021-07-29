@@ -10,8 +10,6 @@ import Results from './components/Results'
 import Categories from './components/Categories'
 import {ErrorBoundary} from 'react-error-boundary'
 import ProductDetail from './components/ProductDetail'
-import Login from './pages/Login'
-import Register from './pages/Register'
 
 
 const App = () => {
@@ -86,14 +84,6 @@ const App = () => {
           </Route>
           <Route exact path="/user">
             <h1>This is user page</h1>
-          </Route>
-
-          <Route exact path="/login">
-            <Login />
-          </Route>
-
-          <Route exact path="/register">
-            <Register />
           </Route>
 
           <Route exact path="/store/:id">

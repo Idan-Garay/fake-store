@@ -11,7 +11,7 @@ import Categories from './components/Categories'
 import {ErrorBoundary} from 'react-error-boundary'
 import ProductDetail from './components/ProductDetail'
 import Carts from './pages/Carts'
-import { TiShoppingCart } from "react-icons/ti";
+import CartNotif from './components/CartNotif'
 
 const App = () => {
   const [cart, setCart] = useState(null)
@@ -96,10 +96,10 @@ const App = () => {
               <Link to="/carts" className="inline-block border border-blue-500 rounded py-1 px-3 bg-blue-500 text-white" >Carts</Link>
             </li>
             <div className="flex-auto justify-end">
-              <li className="w-20">
+              <li className="w-20 h-20">
                 {cart? 
                   <>
-                    <TiShoppingCart />
+                    <CartNotif qty={cart.products.length}/>
                     <h4>{`cart-${cart.id}`}</h4>
                   </>
                 : null

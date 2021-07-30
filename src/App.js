@@ -11,6 +11,7 @@ import Categories from './components/Categories'
 import {ErrorBoundary} from 'react-error-boundary'
 import ProductDetail from './components/ProductDetail'
 import Carts from './pages/Carts'
+import { TiShoppingCart } from "react-icons/ti";
 
 const App = () => {
   const [cart, setCart] = useState(null)
@@ -98,7 +99,7 @@ const App = () => {
               <li className="w-20">
                 {cart? 
                   <>
-                    <p>Cart</p> 
+                    <TiShoppingCart />
                     <h4>{`cart-${cart.id}`}</h4>
                   </>
                 : null

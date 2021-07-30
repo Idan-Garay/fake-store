@@ -14,7 +14,7 @@ const Cart = ({handleUse, cart}) => {
       }
       </div>
       <div className="flex flex-row-reverse">
-        <button className="bg-purple-300 text-gray-800 px-2 rounded shadow-md">Use Cart</button>
+        <button className="bg-purple-300 text-gray-800 px-2 rounded shadow-md" onClick={handleUse}>Use Cart</button>
       </div>
     </div>
   )

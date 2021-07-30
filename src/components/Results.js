@@ -5,7 +5,7 @@ const Results = (props) => {
   const {products, loaded, handleAddToCart} = props
   
   return (
-    <div className="w-7/12 mx-auto flex  flex-wrap justify-center">
+    <div className="w-100 mx-auto flex  flex-wrap justify-center">
       {
         loaded? (
           products.map((p, i) => (

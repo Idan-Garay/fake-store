@@ -2,23 +2,20 @@
 const Cart = ({handleUse, cart}) => {
   const {id, date, products} = cart
   return (
-    <div className="p-5 border-black w-64 h-72" style={{border: "1px solid black"}}>
-      <div className="flex justify-center">
-        <div className="relative">
-          {
-            products.map(data => (
-              <div key={`prod-${data.productId}`}>
-                <h5>{data.productId}</h5>
-                <h5>{data.quantity}x</h5>
-              </div>
-            ))
-          }
-        </div>
-        <div className=" flex-auto h-8 justify-between">
-          <button onClick={handleUse} className='bg-blue-500 p-1 rounded w-15 text-white' >Use</button>
-        </div>
+    <div className="bg-blue-500 w-64 h-64 ml-5 mt-5 shadow-md rounded p-5 flex flex-col justify-between">
+      <div className="top">
+      {
+      cart.products.map(data => (
+          <div key={`prod-${data.productId}`} className="flex justify-between bg-white px-1 h-7">
+            <p>product: {data.productId}</p>
+            <p>x{data.quantity}</p>
+          </div>
+        ))
+      }
       </div>
-      
+      <div className="flex flex-row-reverse">
+        <button className="bg-purple-300 text-gray-800 px-2 rounded shadow-md">Use Cart</button>
+      </div>
     </div>
   )
 }

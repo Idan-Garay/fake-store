@@ -17,13 +17,11 @@ const Carts = (props) => {
   }, [carts])
 
   return (
-    <div className="border-black flex flex-wrap space-x-4 space-y-4  box-border">
+    <div className="flex flex-wrap" >
       {(status === 'idle')?
         <p>Loading...</p>
       : carts.map(data => (
-        <div key={`cart-${data.id}-${data.userId}`} >
-          <Cart handleUse={() => {props.setCart(data)}} cart={data} />
-        </div>
+          <Cart  key={`cart-${data.id}-${data.userId}`} handleUse={() => {props.setCart(data)}} cart={data} />
       ))
       }
     </div>

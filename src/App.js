@@ -19,7 +19,6 @@ const App = () => {
   const [products, setProducts] = useState([])
   const [category, setCategory] = useState('all')
   const prevCategoryRef = useRef(category)
-  console.log(cart)
 
   const handleClick = e => {
     setCategory(e.target.value.toString().toLowerCase())
@@ -34,7 +33,6 @@ const App = () => {
 
       for (let prod of products) {
         if (prod.productId === product.id) {
-          console.log('was here')
           prod.quantity += 1
           found = true
           break;
@@ -46,7 +44,6 @@ const App = () => {
       } else {
         carty.products = products
       }
-      console.log(found, carty === cart)
       setCart(carty)
     } else {
       console.log('No Cart Found')
@@ -66,9 +63,6 @@ const App = () => {
     prevCategoryRef.current = category
   }, [category])
 
-  useEffect(() => {
-    console.log(cart)
-  })
 
   const prevCategory = prevCategoryRef.current
 
@@ -79,8 +73,6 @@ const App = () => {
       fetch(url)
         .then(res => {
           const retVal = res.json()
-          console.log(res, url)
-          console.log(retVal)
           return retVal
         }, error => console.log(error))
         .then(json => {
@@ -135,6 +127,8 @@ const App = () => {
           <Route exact path="/store/:id">
             <ProductDetail />
           </Route>
+
+
         </Switch>
       </Router>
     </ErrorBoundary>

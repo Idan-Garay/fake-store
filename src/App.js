@@ -19,6 +19,7 @@ const App = () => {
   const [products, setProducts] = useState([])
   const [category, setCategory] = useState('all')
   const prevCategoryRef = useRef(category)
+  console.log(cart)
 
   const handleClick = e => {
     setCategory(e.target.value.toString().toLowerCase())
@@ -26,12 +27,14 @@ const App = () => {
   }
 
   const handleAddToCart = product => {
-    if (cart) {
-      const products = cart.products
+    const carty = {...cart}
+    if (carty) {
+      const products = carty.products
       let found = false
 
       for (let prod of products) {
         if (prod.productId === product.id) {
+          console.log('was here')
           prod.quantity += 1
           found = true
           break;
@@ -39,9 +42,12 @@ const App = () => {
       }
 
       if (!found) {
-        cart.products.push({"productId": product.id, "quantity": 1}) 
+        carty.products.push({"productId": product.id, "quantity": 1}) 
+      } else {
+        carty.products = products
       }
-      setCart(cart)
+      console.log(found, carty === cart)
+      setCart(carty)
     } else {
       console.log('No Cart Found')
     }
@@ -59,6 +65,10 @@ const App = () => {
   useEffect(() => {
     prevCategoryRef.current = category
   }, [category])
+
+  useEffect(() => {
+    console.log(cart)
+  })
 
   const prevCategory = prevCategoryRef.current
 

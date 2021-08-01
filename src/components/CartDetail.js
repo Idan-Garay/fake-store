@@ -5,6 +5,7 @@ const CartDetail = () => {
   const {cartId} = useParams()
   const [cart, setCart] = useState({})
   const [products, setProducts] = useState([])
+  const [status, setStatus] = useState('idle')
 
   useEffect(()=> {
     if (cartId) {
@@ -14,11 +15,14 @@ const CartDetail = () => {
               setProducts(json.products)
               return setCart(json)
             })
+      setStatus('loading')
+    }
+    return () => {
+      setCart({})
     }
   }, [cartId])
 
   useEffect(()=> {
-    console.log(products.length)
     if (products.length) {
       let promises = products.map(product => fetch(`https://fakestoreapi.com/products/${product.productId}`)
       .then(res => res.json()).then(json => {
@@ -27,22 +31,31 @@ const CartDetail = () => {
       }))
 
       Promise.all(promises)
-        .then(setProducts)
+        .then(values => {
+          setStatus('loaded')
+          return setProducts(values)
+        })
+    }
+
+    return () => {
+      setProducts([])
     }
   }, [cart])
-  console.log(products)
+  
   return (
     <div>
       {
-        products.length?
+        status !== 'idle'?
         <div className=" bg-blue-500">
-          {products.map(p => (
-            <div key={`p-${p.id}`} className="bg-indigo-500">
-              <div>{p.title} {`p-${p.id}`}</div>
-            </div>
-          ))}
+          {products.map(p => {
+            return (
+              <div key={p.id} className="bg-indigo-500">
+                <div>{p.title} {`p-${p.id}`}</div>
+              </div>
+            )  
+          })}
         </div>
-        : 'Loading'
+        : {status}
       }
     </div>
   )

@@ -39,6 +39,7 @@ const CartDetail = () => {
 
     return () => {
       setProducts([])
+      setStatus('idle')
     }
   }, [cart])
   
@@ -46,16 +47,16 @@ const CartDetail = () => {
     <div>
       {
         status !== 'idle'?
-        <div className=" bg-blue-500">
+        <div className="h-2/3 w-50 bg-blue-500">
           {products.map(p => {
             return (
-              <div key={p.id} className="bg-indigo-500">
+              <div key={`p-${p.id}`}>
                 <div>{p.title} {`p-${p.id}`}</div>
               </div>
             )  
           })}
         </div>
-        : {status}
+        : <p>{status}</p>
       }
     </div>
   )

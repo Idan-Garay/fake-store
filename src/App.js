@@ -12,6 +12,7 @@ import {ErrorBoundary} from 'react-error-boundary'
 import ProductDetail from './components/ProductDetail'
 import Carts from './pages/Carts'
 import CartNotif from './components/CartNotif'
+import CartDetail from './components/CartDetail'
 
 const App = () => {
   const [cart, setCart] = useState(null)
@@ -101,7 +102,7 @@ const App = () => {
               <li className="w-20 h-20">
                 {cart? 
                   <>
-                    <CartNotif qty={cart.products.length}/>
+                    <CartNotif id={cart.id} qty={cart.products.length}/>
                     <h4>{`cart-${cart.id}`}</h4>
                   </>
                 : null
@@ -128,6 +129,9 @@ const App = () => {
             <ProductDetail />
           </Route>
 
+          <Route exact path="/cart/:cartId">
+            <CartDetail />
+          </Route>
 
         </Switch>
       </Router>

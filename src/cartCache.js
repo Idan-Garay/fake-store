@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 
-let localCache = []
+let localCartCache = []
 
 export default function useCartsList(cart) {
   const [cartList, setCartList] = useState([])
@@ -8,8 +8,8 @@ export default function useCartsList(cart) {
   
   useEffect(() => {
     const abort = new AbortController()
-    if (localCache.length) {
-      setCartList(localCache)
+    if (localCartCache.length) {
+      setCartList(localCartCache)
     } else {
       requestCartList()
     }
@@ -22,8 +22,8 @@ export default function useCartsList(cart) {
       const res = await fetch('https://fakestoreapi.com/carts', abort.signal)
       const json = await res.json()
       
-      localCache = json || []
-      setCartList(localCache)
+      localCartCache = json || []
+      setCartList(localCartCache)
       setStatus('loaded')
     }
 

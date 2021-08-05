@@ -18,7 +18,7 @@ const StyledBadge = withStyles((theme) => ({
 const CartNotif = ({id, qty}) => {
   return (
     <div>
-      <Link to={`/cart/${id}`}>
+      <Link to={`/carts/${id}`}>
         <IconButton aria-label="cart" >
             <StyledBadge badgeContent={qty} color="secondary">
               <TiShoppingCart />

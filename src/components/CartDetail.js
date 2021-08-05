@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react'
 
 const CartDetail = () => {
   const {cartId} = useParams()
-  const [cart, setCart] = useState({})
   const [products, setProducts] = useState([])
   const [status, setStatus] = useState('idle')
   
@@ -30,7 +29,6 @@ const CartDetail = () => {
                   setStatus('loaded')
                   setProducts(values)
                 })
-              setCart(json)
             })
 
       setStatus('loading')
@@ -41,7 +39,7 @@ const CartDetail = () => {
   return (
     <div>
       {
-        status !== 'idle' ?
+        products.length ?
         <div className="h-2/3 w-2/3 mx-auto p-5 bg-blue-500">
           {products.map(p => {
             return (

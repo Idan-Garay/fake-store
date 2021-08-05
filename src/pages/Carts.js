@@ -1,27 +1,16 @@
 import React, {useEffect, useState} from 'react'
 import Cart from '../components/Cart'
+import useCartList from '../cartCache'
 
 const Carts = (props) => {
-  const [carts, setCarts] = useState([])
-  const [status, setStatus] = useState('idle')
-
-  useEffect(() => {
-    if (!carts.length) {
-      fetch('https://fakestoreapi.com/carts')
-        .then(res=>res.json())
-        .then(json => {
-          setCarts(json)
-          setStatus('loaded')
-        })
-    }
-  }, [carts])
+  const [cartList, status] = useCartList(props.cart)
 
   return (
     <div className="flex flex-wrap" >
-      {(status === 'idle')?
+      {(!cartList.length)?
         <p>Loading...</p>
-      : carts.map(data => (
-          <Cart  key={`cart-${data.id}-${data.userId}`} handleUse={() => {props.setCart(data)}} cart={data} />
+      : cartList.map(data => (
+          <Cart key={`cart-${data.id}-${data.userId}`} handleUse={() => {props.setCart(data)}} cart={data} />
       ))
       }
     </div>

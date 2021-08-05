@@ -3,11 +3,13 @@ import { useEffect, useState } from 'react'
 const ProductDetail = () => {
   const {id} = useParams()
   const [product, setProduct] = useState(null)
+
   useEffect(() => {
     fetch(`https://fakestoreapi.com/products/${id}`)
       .then(res=>res.json())
       .then(setProduct)
   }, [id])
+  
   console.log(product)
   return (
     <>

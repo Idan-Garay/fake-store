@@ -3,7 +3,7 @@ import Cart from '../components/Cart'
 import useCartList from '../cartCache'
 
 const Carts = (props) => {
-  const [cartList, status] = useCartList(props.cart)
+  const [cartList] = useCartList(props.cart)
 
   return (
     <div className="flex flex-wrap" >

@@ -8,41 +8,35 @@ const CartDetail = () => {
   const [status, setStatus] = useState('idle')
   
   useEffect(()=> {
+    const controller = new AbortController()
     if (cartId) {
-      fetch(`https://fakestoreapi.com/carts/${cartId}`)
+      fetch(`https://fakestoreapi.com/carts/${cartId}`, controller.signal)
             .then(res=>res.json())
             .then(json => {
-              setProducts(json.products)
-              return setCart(json)
+
+              const {products} = json
+              let promises = 
+                products.map(product => fetch(`https://fakestoreapi.com/products/${product.productId}`)
+                .then(res => res.json())
+                .then(json => {
+                  json.qty = product.quantity
+                  json.totalPrice = product.quantity * json.price
+                  return json
+                }))
+
+              Promise.all(promises)
+                .then(values => {
+                  console.log('promises')
+                  setStatus('loaded')
+                  setProducts(values)
+                })
+              setCart(json)
             })
+
       setStatus('loading')
     }
-    return () => {
-      setCart({})
-    }
+    return () => controller.abort()
   }, [cartId])
-
-  useEffect(()=> {
-    if (products.length) {
-      let promises = products.map(product => fetch(`https://fakestoreapi.com/products/${product.productId}`)
-      .then(res => res.json()).then(json => {
-        json.qty = product.quantity
-        json.totalPrice = product.quantity * json.price
-        return json
-      }))
-
-      Promise.all(promises)
-        .then(values => {
-          setStatus('loaded')
-          return setProducts(values)
-        })
-    }
-
-    return () => {
-      setProducts([])
-      setStatus('idle')
-    }
-  }, [cart])
   
   return (
     <div>

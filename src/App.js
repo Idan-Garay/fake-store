@@ -29,22 +29,14 @@ const App = () => {
   const handleAddToCart = product => {
     const carty = {...cart}
     if (carty) {
-      const products = carty.products
-      let found = false
 
-      for (let prod of products) {
-        if (prod.productId === product.id) {
-          prod.quantity += 1
-          found = true
-          break;
-        }
-      }
+      const index = carty.products.findIndex(element => element.productId === product.id)
 
-      if (!found) {
+      if (index) 
+        carty.products[index].quantity++
+      else 
         carty.products.push({"productId": product.id, "quantity": 1}) 
-      } else {
-        carty.products = products
-      }
+      
       setCart(carty)
     } else {
       console.log('No Cart Found')

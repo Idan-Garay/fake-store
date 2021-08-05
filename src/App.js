@@ -28,7 +28,8 @@ const App = () => {
 
   const handleAddToCart = product => {
     const carty = {...cart}
-    if (carty) {
+
+    if (Object.entries(carty).length) {
 
       const index = carty.products.findIndex(element => element.productId === product.id)
 
@@ -39,8 +40,9 @@ const App = () => {
       
       setCart(carty)
     } else {
-      console.log('No Cart Found')
+      alert('oops')
     }
+    
   }
 
   const ErrorFallback = ({error}) => {

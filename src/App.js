@@ -1,4 +1,4 @@
-import {React, StrictMode, useState, useEffect, useRef, createContext} from 'react'
+import {React, StrictMode, useState, useEffect, useRef} from 'react'
 import ReactDOM from 'react-dom'
 import {
   BrowserRouter as Router,
@@ -15,7 +15,8 @@ import CartNotif from './components/CartNotif'
 import CartDetail from './components/CartDetail'
 
 const App = () => {
-  const [cart, setCart] = useState(null)
+  const cartVal = JSON.parse(localStorage.getItem('cart'))
+  const [cart, setCart] = useState(cartVal)
   const [loaded, setLoaded] = useState(false)
   const [products, setProducts] = useState([])
   const [category, setCategory] = useState('all')
@@ -31,14 +32,17 @@ const App = () => {
 
     if (Object.entries(carty).length) {
 
-      const index = carty.products.findIndex(element => element.productId === product.id)
-
-      if (index) 
+      const index = carty.products.findIndex(element => {
+        return element.productId === product.id
+      })
+      
+      if (index !== -1) 
         carty.products[index].quantity++
       else 
         carty.products.push({"productId": product.id, "quantity": 1}) 
       
       setCart(carty)
+      localStorage.setItem('cart', JSON.stringify(carty))
     } else {
       alert('oops')
     }

@@ -1,6 +1,6 @@
 
 const Cart = ({handleUse, cart}) => {
-  const {id, date, products} = cart
+  
   return (
     <div className="bg-blue-500 w-64 h-64 ml-5 mt-5 shadow-md rounded p-5 flex flex-col justify-between">
       <div className="top">
@@ -18,6 +18,7 @@ const Cart = ({handleUse, cart}) => {
       </div>
     </div>
   )
+
 }
 
 export default Cart

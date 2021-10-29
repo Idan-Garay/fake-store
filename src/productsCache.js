@@ -1,14 +1,22 @@
 import { useState, useEffect } from "react";
 
-let localProductsCache = [];
+export let localProductsCache = [];
 
-export default function useProductsList(products) {
+export default function useProductsList(category) {
   const [productsList, setProductsList] = useState([]);
   const [status, setStatus] = useState("unloaded");
+
   useEffect(() => {
     const abort = new AbortController();
-    if (localProductsCache.length) {
-      setProductsList(localProductsCache);
+    if (localProductsCache.length > 0) {
+      category = category.toLowerCase();
+      if (category === "all") {
+        setProductsList(localProductsCache);
+      } else {
+        setProductsList(
+          localProductsCache.filter((p) => p.category === category)
+        );
+      }
     } else {
       requestProductsList();
     }
@@ -27,7 +35,7 @@ export default function useProductsList(products) {
     }
 
     return () => abort.abort();
-  }, [products]);
+  }, [category]);
 
   return [productsList, status];
 }

@@ -8,33 +8,20 @@ import useProductsList from "../productsCache.js";
 
 const Store = () => {
   const [loaded, setLoaded] = useState(false);
-  const [products, setProducts] = useState([]);
   const [category, setCategory] = useState("all");
-  const savedCategory = useCallback(() => category, [category]);
-  const [productsCache] = useProductsList([]);
+  const [products, setProducts] = useState([]);
+  // const savedCategory = useCallback(() => category, [category]);
+  let [productsCache] = useProductsList(category);
 
   const handleClickCategory = (e) => {
     setCategory(e.target.value);
   };
 
   useEffect(() => {
-    if (!products.length) {
-      setProducts(productsCache);
-      setLoaded(true);
-    } else {
-      if (category.toLowerCase() === "all") {
-        console.log(productsCache);
-        setProducts(productsCache);
-      } else {
-        setProducts(
-          productsCache.filter((product) => {
-            return product.category === category.toLowerCase();
-          })
-        );
-      }
-    }
+    setProducts(productsCache);
+    setLoaded(true);
     return () => new AbortController().abort();
-  }, [savedCategory]);
+  }, [productsCache]);
 
   return (
     <div>

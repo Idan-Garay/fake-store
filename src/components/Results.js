@@ -1,19 +1,13 @@
-import Product from './Product'
+import Product from "./Product";
 
-const Results = (props) => {
-  const {products, loaded, handleAddToCart} = props
-  
+const Results = ({ products, loaded }) => {
   return (
-    <div className="w-100 flex flex-wrap px-20 justify-center ">
-      {
-        loaded? (
-          products.map((p, i) => (
-            <Product key={`prod-${i}`} handleAddToCart={handleAddToCart} product={p} />
-          ))
-        ): "Loading..."
-      }
+    <div className="md:w-full pl-20 flex flex-wrap gap-y-5">
+      {loaded
+        ? products.map((p, i) => <Product key={`prod-${i}`} product={p} />)
+        : "Loading..."}
     </div>
-  )
-}
+  );
+};
 
-export default Results
+export default Results;

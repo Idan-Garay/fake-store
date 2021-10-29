@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import CartNotif from "./CartNotif";
+import { CartContext } from "../App";
 
 const Navbar = () => {
+  const { cart } = useContext(CartContext);
+
   return (
     <nav>
       <ul className="flex">

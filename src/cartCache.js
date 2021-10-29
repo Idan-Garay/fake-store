@@ -1,34 +1,34 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 
-let localCartCache = []
+let localCartCache = [];
 
-export default function useCartsList(cart) {
-  const [cartList, setCartList] = useState([])
-  const [status, setStatus] = useState("unloaded")
-  
+export default function useCartsList() {
+  const [cartList, setCartList] = useState([]);
+  const [status, setStatus] = useState("unloaded");
+
   useEffect(() => {
-    const abort = new AbortController()
+    const abort = new AbortController();
     if (localCartCache.length) {
-      setCartList(localCartCache)
+      setCartList(localCartCache);
     } else {
-      requestCartList()
+      requestCartList();
     }
-  
+
     async function requestCartList() {
-      console.log('requesting')
-      setCartList([])
-      setStatus('loading')
-  
-      const res = await fetch('https://fakestoreapi.com/carts', abort.signal)
-      const json = await res.json()
-      
-      localCartCache = json || []
-      setCartList(localCartCache)
-      setStatus('loaded')
+      console.log("requesting");
+      setCartList([]);
+      setStatus("loading");
+
+      const res = await fetch("https://fakestoreapi.com/carts", abort.signal);
+      const json = await res.json();
+
+      localCartCache = json || [];
+      setCartList(localCartCache);
+      setStatus("loaded");
     }
 
-    return () => abort.abort()
-  }, [cart])
+    return () => abort.abort();
+  }, []);
 
-  return [cartList, status]
+  return [cartList, status];
 }

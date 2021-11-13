@@ -1,41 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { CartContext } from "../App";
 
 const CartDetail = () => {
-  // const {cartId} = useParams()
-  const pVal = JSON.parse(localStorage.getItem("cart")).products;
-  const [products, setProducts] = useState(pVal);
+  const { cart } = useContext(CartContext);
+  const [products, setProducts] = useState([]);
   const [status] = useState("idle");
-
-  console.log(products.length);
-
+  console.log("hello", cart);
   useEffect(() => {
     const controller = new AbortController();
-    if (products) {
-      const promises = products.map(
-        (data) =>
-          fetch(`https://fakestoreapi.com/products/${data.productId}`)
-            .then((res) => res.json())
-            .then((json) => {
-              json.qty = data.quantity;
-              json.totalPrice = json.qty * json.price;
-              return json;
-            }),
-        controller.signal
+
+    const requestProduct = async (prodID) => {
+      const fetchedProduct = await fetch(
+        `https://fakestoreapi.com/products/${prodID}`
       );
-      Promise.all(promises).then(setProducts);
-    }
+      const json = fetchedProduct.json();
+      return json;
+    };
+    let newProductsList = cart.products.map((product) => {
+      const newProd = requestProduct(product.productId);
+      newProd.quantity = product.quantity;
+      newProd.totalPrice = product.quantity * newProd.price;
+      return newProd;
+    });
+
+    setProducts(newProductsList);
 
     return () => {
       controller.abort();
     };
-  }, [products]);
+  }, []);
 
   return (
     <div>
       {products.length ? (
         <div className="h-2/3 w-2/3 mx-auto p-5 bg-blue-500">
           {products.map((p) => {
-            console.log(products.length);
             return (
               <div
                 key={`p-${p.id}`}

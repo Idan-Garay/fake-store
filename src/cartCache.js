@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
-let localCartCache = [];
+export let localCartCache = [];
 
 export default function useCartsList() {
   const [cartList, setCartList] = useState([]);
-  const [status, setStatus] = useState("unloaded");
+  const [status, setStatus] = useState(localCartCache ? "loaded" : "unloaded");
 
   useEffect(() => {
     const abort = new AbortController();
@@ -15,7 +15,6 @@ export default function useCartsList() {
     }
 
     async function requestCartList() {
-      console.log("requesting");
       setCartList([]);
       setStatus("loading");
 

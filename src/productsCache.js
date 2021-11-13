@@ -9,6 +9,7 @@ export default function useProductsList(category) {
   useEffect(() => {
     const abort = new AbortController();
     if (localProductsCache.length > 0) {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       category = category.toLowerCase();
       if (category === "all") {
         setProductsList(localProductsCache);
@@ -22,7 +23,6 @@ export default function useProductsList(category) {
     }
 
     async function requestProductsList() {
-      console.log("requesting");
       setProductsList([]);
       setStatus("loading");
 

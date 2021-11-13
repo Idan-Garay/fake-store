@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import Categories from "../components/Categories";
 import Results from "../components/Results";
 import ProductDetail from "../components/ProductDetail";
@@ -10,7 +10,6 @@ const Store = () => {
   const [loaded, setLoaded] = useState(false);
   const [category, setCategory] = useState("all");
   const [products, setProducts] = useState([]);
-  // const savedCategory = useCallback(() => category, [category]);
   let [productsCache] = useProductsList(category);
 
   const handleClickCategory = (e) => {

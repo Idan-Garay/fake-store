@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Store from "./pages/Store";
 import ErrorFallBack from "./components/ErrorFallBack";
 import Navbar from "./components/Navbar";
+import CartDetail from "./components/CartDetail";
 
 const types = {
   AddProduct: "ADD PRODUCT",
@@ -38,9 +39,8 @@ const reducer = (state, action) => {
         products: [...state.products.filter((p) => p.qty !== 0)],
       };
     }
-    case types.ChangeCart: 
-      return {...action.value};
-    
+    case types.ChangeCart:
+      return { ...action.value };
   }
 };
 
@@ -69,6 +69,9 @@ const App = () => {
             </Route>
             <Route exact path="/carts">
               <Carts />
+            </Route>
+            <Route exact path="/carts/:id">
+              <CartDetail />
             </Route>
           </Switch>
         </CartContext.Provider>

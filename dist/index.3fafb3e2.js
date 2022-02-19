@@ -1058,7 +1058,7 @@ try {
   window.$RefreshSig$ = prevRefreshSig;
 }
 
-},{"react":"3b2NM","react-dom":"2sg1U","./App":"6Pm2X","react-router-dom":"1PMSK","react/jsx-runtime":"7jBZW","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f","react-redux":"7GDa4","./store":"4av32"}],"3b2NM":[function(require,module,exports) {
+},{"react":"3b2NM","react-dom":"2sg1U","./App":"6Pm2X","react-router-dom":"1PMSK","react-redux":"7GDa4","./store":"4av32","react/jsx-runtime":"7jBZW","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"3b2NM":[function(require,module,exports) {
 "use strict";
 if ("development" === 'production') {
   module.exports = require('./cjs/react.production.min.js');
@@ -31913,19 +31913,15 @@ try {
   var _componentsCartDetail = require("../components/CartDetail");
   var _componentsCartDetailDefault = _parcelHelpers.interopDefault(_componentsCartDetail);
   var _reactRouterDom = require("react-router-dom");
-  var _productsCacheJs = require("../productsCache.js");
-  var _productsCacheJsDefault = _parcelHelpers.interopDefault(_productsCacheJs);
+  require("../productsCache.js");
   var _featuresStoreStoreSlice = require("../features/store/storeSlice");
   var _reactRedux = require("react-redux");
   var _reactJsxRuntime = require("react/jsx-runtime");
   var _s = $RefreshSig$();
   const Store = () => {
     _s();
-    // const [loaded, setLoaded] = useState(false);
-    // const [category, setCategory] = useState("all");
-    // const [products, setProducts] = useState([]);
-    const {products, loaded, category} = _reactRedux.useSelector(state => state.store);
-    let [productsCache] = _productsCacheJsDefault.default(category);
+    const {products, category} = _reactRedux.useSelector(state => state.store);
+    // let [productsCache] = useProductsList(category);
     const dispatch = _reactRedux.useDispatch();
     const handleClickCategory = e => {
       dispatch(_featuresStoreStoreSlice.changeCategory(e.target.value));
@@ -31935,18 +31931,20 @@ try {
     _react.useEffect(() => {
       // setProducts(productsCache);
       // setLoaded(true);
-      dispatch(_featuresStoreStoreSlice.changeStatus(false));
-      dispatch(_featuresStoreStoreSlice.setProducts(productsCache));
-      dispatch(_featuresStoreStoreSlice.changeStatus(true));
+      if (products.length === 0) dispatch(_featuresStoreStoreSlice.getStore());
+      // returns {type, payload} via createAsyncThunk
+      // dispatch(changeStatus(false));
+      // dispatch(setProducts(productsCache));
+      // dispatch(changeStatus(true));
       return () => new AbortController().abort();
-    }, [productsCache]);
-    console.log(category, products, loaded);
+    }, [products.length, dispatch]);
+    // products.length for now since status is yet to be implemented
+    // console.log(category, products, loaded);
     return (
       /*#__PURE__*/_reactJsxRuntime.jsxs("div", {
         children: [/*#__PURE__*/_reactJsxRuntime.jsx(_componentsCategoriesDefault.default, {
           handleClick: handleClickCategory
         }), /*#__PURE__*/_reactJsxRuntime.jsx(_componentsResultsDefault.default, {
-          loaded: loaded,
           products: products
         }), /*#__PURE__*/_reactJsxRuntime.jsx(_reactRouterDom.Route, {
           exact: true,
@@ -31960,8 +31958,8 @@ try {
       })
     );
   };
-  _s(Store, "+277w0p4N5BFMJ5vRtcPrGJHJTA=", false, function () {
-    return [_reactRedux.useSelector, _productsCacheJsDefault.default, _reactRedux.useDispatch];
+  _s(Store, "3R2n2qDwFOGSTG71GbRLobHD0ek=", false, function () {
+    return [_reactRedux.useSelector, _reactRedux.useDispatch];
   });
   _c = Store;
   exports.default = Store;
@@ -31973,7 +31971,7 @@ try {
   window.$RefreshSig$ = prevRefreshSig;
 }
 
-},{"react":"3b2NM","../components/Categories":"h4K41","../components/Results":"39HEW","../components/ProductDetail":"Y5Jx5","../components/CartDetail":"3Y4nf","react-router-dom":"1PMSK","react/jsx-runtime":"7jBZW","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f","../features/store/storeSlice":"WDRmK","react-redux":"7GDa4","../productsCache.js":"3okJc"}],"h4K41":[function(require,module,exports) {
+},{"react":"3b2NM","../components/Categories":"h4K41","../components/Results":"39HEW","../components/ProductDetail":"Y5Jx5","../components/CartDetail":"3Y4nf","react-router-dom":"1PMSK","../productsCache.js":"3okJc","../features/store/storeSlice":"WDRmK","react-redux":"7GDa4","react/jsx-runtime":"7jBZW","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"h4K41":[function(require,module,exports) {
 var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
 _parcelHelpers.defineInteropFlag(exports);
 var _reactJsxRuntime = require("react/jsx-runtime");
@@ -32021,14 +32019,14 @@ _parcelHelpers.defineInteropFlag(exports);
 var _Product = require("./Product");
 var _ProductDefault = _parcelHelpers.interopDefault(_Product);
 var _reactJsxRuntime = require("react/jsx-runtime");
-const Results = ({products, loaded}) => {
-  console.log(loaded);
+const Results = ({products}) => {
+  console.log(products);
   return (
     /*#__PURE__*/_reactJsxRuntime.jsx("div", {
       className: "md:w-full flex flex-wrap gap-y-5 justify-center",
-      children: loaded ? products.map((p, i) => /*#__PURE__*/_reactJsxRuntime.jsx(_ProductDefault.default, {
+      children: products.length ? products.map((p, i) => /*#__PURE__*/_reactJsxRuntime.jsx(_ProductDefault.default, {
         product: p
-      }, `prod-${i}`)) : "Loading..."
+      }, `prod-${i}`)) : "fetch error"
     })
   );
 };
@@ -32263,11 +32261,66 @@ try {
   window.$RefreshSig$ = prevRefreshSig;
 }
 
-},{"react":"3b2NM","../App":"6Pm2X","react/jsx-runtime":"7jBZW","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"WDRmK":[function(require,module,exports) {
+},{"react":"3b2NM","../App":"6Pm2X","react/jsx-runtime":"7jBZW","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"3okJc":[function(require,module,exports) {
+var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+  _parcelHelpers.defineInteropFlag(exports);
+  _parcelHelpers.export(exports, "localProductsCache", function () {
+    return localProductsCache;
+  });
+  var _react = require("react");
+  var _s = $RefreshSig$();
+  let localProductsCache = [];
+  function useProductsList(category) {
+    _s();
+    const [productsList, setProductsList] = _react.useState([]);
+    const [status, setStatus] = _react.useState("unloaded");
+    _react.useEffect(() => {
+      const abort = new AbortController();
+      if (localProductsCache.length > 0) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        category = category.toLowerCase();
+        if (category === "all") {
+          setProductsList(localProductsCache);
+        } else {
+          setProductsList(localProductsCache.filter(p => p.category === category));
+        }
+      } else {
+        requestProductsList();
+      }
+      async function requestProductsList() {
+        setProductsList([]);
+        setStatus("loading");
+        const res = await fetch("https://fakestoreapi.com/products");
+        const json = await res.json();
+        localProductsCache = json || [];
+        setProductsList(localProductsCache);
+        setStatus("loaded");
+      }
+      return () => abort.abort();
+    }, [category]);
+    return [productsList, status];
+  }
+  exports.default = useProductsList;
+  _s(useProductsList, "s/JwGlBXwhTGY0c60iJvBmIhqD4=");
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+
+},{"react":"3b2NM","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"WDRmK":[function(require,module,exports) {
 var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
 _parcelHelpers.defineInteropFlag(exports);
 _parcelHelpers.export(exports, "storeSlice", function () {
   return storeSlice;
+});
+_parcelHelpers.export(exports, "getStore", function () {
+  return getStore;
 });
 _parcelHelpers.export(exports, "getProducts", function () {
   return getProducts;
@@ -32303,7 +32356,21 @@ const storeSlice = _reduxjsToolkit.createSlice({
     changeStatus: (state, action) => {
       state.loaded = action.payload;
     }
+  },
+  extraReducers: builder => {
+    // extra reducers for
+    builder.addCase(getStore.pending, (state, action) => {
+      // addCases are for actions created by async thunks.
+      state.status = "loading";
+    }).addCase(getStore.fulfilled, (state, action) => {
+      (state.status = "succeeded", state.products = state.products.concat(action.payload));
+    });
   }
+});
+const getStore = _reduxjsToolkit.createAsyncThunk("store/all", async () => {
+  const response = await fetch("https://fakestoreapi.com/products");
+  // api returns a json of array products;
+  return response.json();
 });
 const {getProducts, changeCategory, changeStatus, setProducts} = storeSlice.actions;
 exports.default = storeSlice.reducer;
@@ -38583,59 +38650,7 @@ exports.unstable_batchedUpdates = void 0;
 var _reactDom = require("react-dom");
 
 exports.unstable_batchedUpdates = _reactDom.unstable_batchedUpdates;
-},{"react-dom":"2sg1U"}],"3okJc":[function(require,module,exports) {
-var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-helpers.prelude(module);
-try {
-  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
-  _parcelHelpers.defineInteropFlag(exports);
-  _parcelHelpers.export(exports, "localProductsCache", function () {
-    return localProductsCache;
-  });
-  var _react = require("react");
-  var _s = $RefreshSig$();
-  let localProductsCache = [];
-  function useProductsList(category) {
-    _s();
-    const [productsList, setProductsList] = _react.useState([]);
-    const [status, setStatus] = _react.useState("unloaded");
-    _react.useEffect(() => {
-      const abort = new AbortController();
-      if (localProductsCache.length > 0) {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        category = category.toLowerCase();
-        if (category === "all") {
-          setProductsList(localProductsCache);
-        } else {
-          setProductsList(localProductsCache.filter(p => p.category === category));
-        }
-      } else {
-        requestProductsList();
-      }
-      async function requestProductsList() {
-        setProductsList([]);
-        setStatus("loading");
-        const res = await fetch("https://fakestoreapi.com/products");
-        const json = await res.json();
-        localProductsCache = json || [];
-        setProductsList(localProductsCache);
-        setStatus("loaded");
-      }
-      return () => abort.abort();
-    }, [category]);
-    return [productsList, status];
-  }
-  exports.default = useProductsList;
-  _s(useProductsList, "s/JwGlBXwhTGY0c60iJvBmIhqD4=");
-  helpers.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-
-},{"react":"3b2NM","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"7H6zZ":[function(require,module,exports) {
+},{"react-dom":"2sg1U"}],"7H6zZ":[function(require,module,exports) {
 var helpers = require("../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;

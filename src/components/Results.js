@@ -1,12 +1,12 @@
 import Product from "./Product";
 
-const Results = ({ products, loaded }) => {
-  console.log(loaded);
+const Results = ({ products }) => {
+  console.log(products);
   return (
     <div className="md:w-full flex flex-wrap gap-y-5 justify-center">
-      {loaded
+      {products.length
         ? products.map((p, i) => <Product key={`prod-${i}`} product={p} />)
-        : "Loading..."}
+        : "fetch error"}
     </div>
   );
 };

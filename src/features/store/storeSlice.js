@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
   products: [],
@@ -25,6 +25,28 @@ export const storeSlice = createSlice({
       state.loaded = action.payload;
     },
   },
+  extraReducers: (builder) => {
+    // extra reducers for
+    builder
+      .addCase(getStore.pending, (state, action) => {
+        // addCases are for actions created by async thunks.
+        state.status = "loading";
+      })
+      .addCase(getStore.fulfilled, (state, action) => {
+        (state.status = "succeeded"),
+          (state.products = state.products.concat(action.payload));
+      });
+    // .addCase(fetchPosts.rejected, (state, action) => {
+    //   state.status = 'failed';
+    //   state.error  = action.error.message;
+    // })
+  },
+});
+
+export const getStore = createAsyncThunk("store/all", async () => {
+  const response = await fetch("https://fakestoreapi.com/products");
+  // api returns a json of array products;
+  return response.json();
 });
 
 export const { getProducts, changeCategory, changeStatus, setProducts } =

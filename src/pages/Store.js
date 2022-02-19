@@ -10,15 +10,13 @@ import {
   changeCategory,
   changeStatus,
   setProducts,
+  getStore,
 } from "../features/store/storeSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 const Store = () => {
-  // const [loaded, setLoaded] = useState(false);
-  // const [category, setCategory] = useState("all");
-  // const [products, setProducts] = useState([]);
-  const { products, loaded, category } = useSelector((state) => state.store);
-  let [productsCache] = useProductsList(category);
+  const { products, category } = useSelector((state) => state.store);
+  // let [productsCache] = useProductsList(category);
   const dispatch = useDispatch();
 
   const handleClickCategory = (e) => {
@@ -30,16 +28,19 @@ const Store = () => {
   useEffect(() => {
     //   setProducts(productsCache);
     //   setLoaded(true);
-    dispatch(changeStatus(false));
-    dispatch(setProducts(productsCache));
-    dispatch(changeStatus(true));
+
+    if (products.length === 0) dispatch(getStore()); // returns {type, payload} via createAsyncThunk
+
+    // dispatch(changeStatus(false));
+    // dispatch(setProducts(productsCache));
+    // dispatch(changeStatus(true));
     return () => new AbortController().abort();
-  }, [productsCache]);
-  console.log(category, products, loaded);
+  }, [products.length, dispatch]); // products.length for now since status is yet to be implemented
+  // console.log(category, products, loaded);
   return (
     <div>
       <Categories handleClick={handleClickCategory} />
-      <Results loaded={loaded} products={products} />
+      <Results products={products} />
       <Route exact path="/store/:id">
         <ProductDetail />
       </Route>

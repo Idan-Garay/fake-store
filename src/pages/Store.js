@@ -4,28 +4,43 @@ import Results from "../components/Results";
 import ProductDetail from "../components/ProductDetail";
 import CartDetail from "../components/CartDetail";
 import { Route } from "react-router-dom";
-import useProductsList from "../productsCache.js";
+
+import {
+  getProducts,
+  changeCategory,
+  changeStatus,
+  getStore,
+} from "../features/store/storeSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 const Store = () => {
-  const [loaded, setLoaded] = useState(false);
-  const [category, setCategory] = useState("all");
-  const [products, setProducts] = useState([]);
-  let [productsCache] = useProductsList(category);
+  const { products } = useSelector((state) => state.store);
+
+  const dispatch = useDispatch();
 
   const handleClickCategory = (e) => {
-    setCategory(e.target.value);
+    dispatch(changeCategory(e.target.value));
+    if (products.length == 0) dispatch(getProducts());
+    else dispatch();
+    dispatch(changeStatus(true));
   };
 
   useEffect(() => {
-    setProducts(productsCache);
-    setLoaded(true);
-    return () => new AbortController().abort();
-  }, [productsCache]);
+    //   setProducts(productsCache);
+    //   setLoaded(true);
 
+    if (products.length === 0) dispatch(getStore()); // returns {type, payload} via createAsyncThunk
+
+    // dispatch(changeStatus(false));
+    // dispatch(setProducts(productsCache));
+    // dispatch(changeStatus(true));
+    return () => new AbortController().abort();
+  }, [products.length, dispatch]); // products.length for now since status is yet to be implemented
+  // console.log(category, products, loaded);
   return (
     <div>
       <Categories handleClick={handleClickCategory} />
-      <Results loaded={loaded} products={products} />
+      <Results products={products} />
       <Route exact path="/store/:id">
         <ProductDetail />
       </Route>

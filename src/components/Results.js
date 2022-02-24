@@ -1,7 +1,6 @@
 import Product from "./Product";
 
 const Results = ({ products }) => {
-  console.log(products);
   return (
     <div className="md:w-full flex flex-wrap gap-y-5 justify-center">
       {products.length

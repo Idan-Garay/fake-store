@@ -31913,19 +31913,17 @@ try {
   var _componentsCartDetail = require("../components/CartDetail");
   var _componentsCartDetailDefault = _parcelHelpers.interopDefault(_componentsCartDetail);
   var _reactRouterDom = require("react-router-dom");
-  require("../productsCache.js");
   var _featuresStoreStoreSlice = require("../features/store/storeSlice");
   var _reactRedux = require("react-redux");
   var _reactJsxRuntime = require("react/jsx-runtime");
   var _s = $RefreshSig$();
   const Store = () => {
     _s();
-    const {products, category} = _reactRedux.useSelector(state => state.store);
-    // let [productsCache] = useProductsList(category);
+    const {products} = _reactRedux.useSelector(state => state.store);
     const dispatch = _reactRedux.useDispatch();
     const handleClickCategory = e => {
       dispatch(_featuresStoreStoreSlice.changeCategory(e.target.value));
-      dispatch(_featuresStoreStoreSlice.getProducts());
+      if (products.length == 0) dispatch(_featuresStoreStoreSlice.getProducts()); else dispatch();
       dispatch(_featuresStoreStoreSlice.changeStatus(true));
     };
     _react.useEffect(() => {
@@ -31958,7 +31956,7 @@ try {
       })
     );
   };
-  _s(Store, "3R2n2qDwFOGSTG71GbRLobHD0ek=", false, function () {
+  _s(Store, "NCD7deKk94evGxBuVOquF0a+TVI=", false, function () {
     return [_reactRedux.useSelector, _reactRedux.useDispatch];
   });
   _c = Store;
@@ -31971,7 +31969,7 @@ try {
   window.$RefreshSig$ = prevRefreshSig;
 }
 
-},{"react":"3b2NM","../components/Categories":"h4K41","../components/Results":"39HEW","../components/ProductDetail":"Y5Jx5","../components/CartDetail":"3Y4nf","react-router-dom":"1PMSK","../productsCache.js":"3okJc","../features/store/storeSlice":"WDRmK","react-redux":"7GDa4","react/jsx-runtime":"7jBZW","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"h4K41":[function(require,module,exports) {
+},{"react":"3b2NM","../components/Categories":"h4K41","../components/Results":"39HEW","../components/ProductDetail":"Y5Jx5","../components/CartDetail":"3Y4nf","react-router-dom":"1PMSK","../features/store/storeSlice":"WDRmK","react-redux":"7GDa4","react/jsx-runtime":"7jBZW","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"h4K41":[function(require,module,exports) {
 var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
 _parcelHelpers.defineInteropFlag(exports);
 var _reactJsxRuntime = require("react/jsx-runtime");
@@ -32020,7 +32018,6 @@ var _Product = require("./Product");
 var _ProductDefault = _parcelHelpers.interopDefault(_Product);
 var _reactJsxRuntime = require("react/jsx-runtime");
 const Results = ({products}) => {
-  console.log(products);
   return (
     /*#__PURE__*/_reactJsxRuntime.jsx("div", {
       className: "md:w-full flex flex-wrap gap-y-5 justify-center",
@@ -32261,59 +32258,7 @@ try {
   window.$RefreshSig$ = prevRefreshSig;
 }
 
-},{"react":"3b2NM","../App":"6Pm2X","react/jsx-runtime":"7jBZW","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"3okJc":[function(require,module,exports) {
-var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-helpers.prelude(module);
-try {
-  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
-  _parcelHelpers.defineInteropFlag(exports);
-  _parcelHelpers.export(exports, "localProductsCache", function () {
-    return localProductsCache;
-  });
-  var _react = require("react");
-  var _s = $RefreshSig$();
-  let localProductsCache = [];
-  function useProductsList(category) {
-    _s();
-    const [productsList, setProductsList] = _react.useState([]);
-    const [status, setStatus] = _react.useState("unloaded");
-    _react.useEffect(() => {
-      const abort = new AbortController();
-      if (localProductsCache.length > 0) {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        category = category.toLowerCase();
-        if (category === "all") {
-          setProductsList(localProductsCache);
-        } else {
-          setProductsList(localProductsCache.filter(p => p.category === category));
-        }
-      } else {
-        requestProductsList();
-      }
-      async function requestProductsList() {
-        setProductsList([]);
-        setStatus("loading");
-        const res = await fetch("https://fakestoreapi.com/products");
-        const json = await res.json();
-        localProductsCache = json || [];
-        setProductsList(localProductsCache);
-        setStatus("loaded");
-      }
-      return () => abort.abort();
-    }, [category]);
-    return [productsList, status];
-  }
-  exports.default = useProductsList;
-  _s(useProductsList, "s/JwGlBXwhTGY0c60iJvBmIhqD4=");
-  helpers.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-
-},{"react":"3b2NM","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"WDRmK":[function(require,module,exports) {
+},{"react":"3b2NM","../App":"6Pm2X","react/jsx-runtime":"7jBZW","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"WDRmK":[function(require,module,exports) {
 var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
 _parcelHelpers.defineInteropFlag(exports);
 _parcelHelpers.export(exports, "storeSlice", function () {

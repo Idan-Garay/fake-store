@@ -1,9 +1,15 @@
+import Link from "next/link";
+
 export default function () {
   return (
     <nav>
-      <div className="flex items-center justify-between">
+      <div className="flex justify-between">
         <div>
-          <span>Fake Z</span>
+          <Link href="/">
+            <span className="cursor-pointer font-thin text-5xl ml-5 mt-5 border-l border-b p-2">
+              Fake Z
+            </span>
+          </Link>
         </div>
         <div className="py-6 px-5 space-y-6">
           <div className="border-black border-2 flex items-center space-x-4">

@@ -11,7 +11,7 @@ export default function ProductGallery({ category }) {
   if (!data) return <div>Loading...</div>;
 
   return (
-    <section class="overflow-scroll border-white w-full border-2 text-gray-700 ">
+    <section class="overflow-scroll w-full text-gray-700 ">
       <div class={`${grid.gallery}`}>
         {data.map((prod, index) => (
           <Product key={`prod-${index}`} {...prod} />

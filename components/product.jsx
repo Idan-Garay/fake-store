@@ -17,7 +17,7 @@ export default function Product(props) {
         />
         <div className="opacity-0 hover:opacity-100 hover:bg-zinc-600/25 duration-300 absolute inset-0 z-10 flex justify-center items-end">
           <div className="bg-black h-1/4 w-full text-white flex-col">
-            <h4 className="h-2/4">{pName}</h4>
+            <h4 className="h-2/5 truncate">{pName}</h4>
             <div className="flex flex-nowrap justify-between h-1/3">
               <h6>${price}</h6>
               <div>

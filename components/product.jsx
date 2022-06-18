@@ -7,11 +7,11 @@ export default function Product(props) {
   const pImg = props.image || "#";
 
   return (
-    <div class="flex flex-wrap min-w-full w-full relative">
-      <div class="w-full p-1 md:p-2 relative">
+    <div className="flex flex-wrap min-w-full w-full relative">
+      <div className="w-full p-1 md:p-2 relative">
         <Image
           alt="gallery"
-          class="block object-cover object-center w-full h-full hover:shadow-2xl  absolute inset-0 z-0"
+          className="block object-cover object-center w-full h-full hover:shadow-2xl  absolute inset-0 z-0"
           src={pImg}
           layout="fill"
         />

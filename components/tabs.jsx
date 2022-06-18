@@ -1,7 +1,7 @@
 import useSWR from "swr";
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
-export default function Tabs() {
+export default function Tabs({ handleClick }) {
   const { data, error } = useSWR(
     "https://fakestoreapi.com/products/categories",
     fetcher
@@ -19,11 +19,17 @@ export default function Tabs() {
           key={"categories-" + idx}
         >
           {idx === 0 ? (
-            <button className="capitalize inline-block p-4 text-indigo-600  bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500">
+            <button
+              onClick={() => handleClick(category)}
+              className="capitalize inline-block p-4 text-indigo-600  bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500"
+            >
               {category}
             </button>
           ) : (
-            <button className="capitalize inline-block p-4 rounded-t-lg hover:text-indigo-500 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">
+            <button
+              onClick={() => handleClick(category)}
+              className="capitalize inline-block p-4 rounded-t-lg hover:text-indigo-500 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
+            >
               {category}
             </button>
           )}

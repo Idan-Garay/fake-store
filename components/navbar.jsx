@@ -13,10 +13,12 @@ export default function () {
         </div>
         <div className="py-6 px-5 space-y-6">
           <div className="border-black border-2 flex items-center space-x-4">
-            <a href="#">Cart</a>
-            <a href="#" className="text-indigo-600 hover:text-indigo-500">
-              Products
-            </a>
+            <Link href="/cart">
+              <a className="hover:text-gray-300">Cart</a>
+            </Link>
+            <Link href="/">
+              <a className="text-indigo-600 hover:text-indigo-500">Products</a>
+            </Link>
           </div>
         </div>
       </div>

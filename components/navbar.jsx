@@ -13,7 +13,7 @@ export default function () {
         </div>
         <div className="py-6 px-5 space-y-6">
           <div className="border-black border-2 flex items-center space-x-4">
-            <Link href="/cart">
+            <Link href="/carts">
               <a className="hover:text-gray-300">Cart</a>
             </Link>
             <Link href="/">

@@ -1,4 +1,7 @@
-export default function Cart() {
+export default function Cart(props) {
+  const date = props.date || "2020-10-10";
+  const products = props.products || [];
+
   return (
     <div className="w-4/6 cursor-pointer hover:bg-zinc-600/25">
       <div className=" flex flex-row nowrap gap-5 p-5 border justify-center items-center border-indigo-300/25">
@@ -17,13 +20,14 @@ export default function Cart() {
           />
         </svg>
         <div className="h-auto">
-          <h2 className="">2020-10-10</h2>
+          <h2 className="">{new Date(date).toDateString()}</h2>
           <div className="flex flex-row flex-nowrap gap-5">
             <p>
-              <span className="text-zinc-400">Total: </span> 20
+              <span className="text-zinc-400">Total: </span>{" "}
+              {products.reduce((prev, curr) => curr.quantity + prev, 0)}
             </p>
             <p>
-              <span className="text-zinc-400">Unique: </span> 11
+              <span className="text-zinc-400">Unique: </span> {products.length}
             </p>
           </div>
         </div>

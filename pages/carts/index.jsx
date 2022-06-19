@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import useSWR from "swr";
 import Cart from "../../components/cart";
@@ -39,7 +40,7 @@ export default function Index() {
             Edit
           </button>
         </div>
-        <div className=" h-3/6 flex flex-row flex-nowrap gap-3 justify-center">
+        <div className=" h-3/6 flex flex-row flex-nowrap gap-4 justify-start py-2">
           {data.map((prod) => (
             <CartProduct key={"cartProd-" + prod.id} {...prod} />
           ))}
@@ -50,15 +51,27 @@ export default function Index() {
             <ul className="w-5/6  ">
               <li className="flex flex-row flex-nowrap justify-between">
                 <span className="text-zinc-400">Total qty. : </span>
-                <span>20</span>
+                <span>
+                  {cart.products.reduce(
+                    (prev, curr) => parseInt(curr.quantity) + prev,
+                    0
+                  )}
+                </span>
               </li>
               <li className="flex flex-row flex-nowrap justify-between">
                 <span className="text-zinc-400">Unique items: </span>
-                <span>20</span>
+                <span>{cart.products.length}</span>
               </li>
               <li className="flex flex-row flex-nowrap justify-between text-lg mt-1">
                 <span className="">Total: </span>
-                <span className="font-semibold">20 </span>
+                <span className="font-light">
+                  ${" "}
+                  {cart.products.reduce(
+                    (prev, curr, idx) =>
+                      data[idx].price * parseInt(curr.quantity) + prev,
+                    0
+                  )}
+                </span>
               </li>
             </ul>
           </div>

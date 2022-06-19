@@ -17,7 +17,7 @@ export default function Product(props) {
           src={pImg}
           layout="fill"
         />
-        <Link href={`store/${pid}`}>
+        <Link href={`store/${pid}`} query={{ product: { ...props } }}>
           <div className="cursor-pointer opacity-0 hover:opacity-100 hover:bg-zinc-600/25 duration-300 absolute inset-0 z-10 flex justify-center items-end">
             <div className="bg-black h-1/4 w-full text-white flex-col">
               <h4 className="h-2/5 truncate">{pName}</h4>

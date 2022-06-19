@@ -12,11 +12,11 @@ export default function () {
           </Link>
         </div>
         <div className="py-5 px-5 space-y-6">
-          <div className="border-black border-2 flex items-center space-x-4">
+          <div className="border-black border-2 flex items-center space-x-4 gap-5">
             <Link href="/carts">
-              <div className="flex gap-2">
+              <div className="flex gap-2 cursor-pointer">
                 <a className="hover:text-gray-300">Cart</a>
-                <span class="inline-flex items-center justify-center p-2 mr-2 text-xs font-bold leading-none text-black bg-white rounded-full">
+                <span className="inline-flex items-center justify-center p-2 mr-2 text-xs font-bold leading-none text-black bg-white rounded-full">
                   9
                 </span>
               </div>

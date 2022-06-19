@@ -1,23 +1,29 @@
 import Image from "next/image";
-import { useRouter } from "next/router";
 
-export default function Product() {
-  const router = useRouter();
-  const { pid } = router.query;
+export async function getStaticPaths() {
+  const products = await fetch("https://fakestoreapi.com/products").then(
+    (res) => res.json()
+  );
 
-  const product = {
-    id: 1,
-    title: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-    price: 109.95,
-    description:
-      "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-    category: "men's clothing",
-    image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-    rating: { rate: 3.9, count: 120 },
+  const paths = products.map((product) => ({
+    params: { pid: product.id.toString() },
+  }));
+
+  return {
+    paths,
+    fallback: "blocking",
   };
+}
 
-  // received product detail from router.push
+export async function getStaticProps({ params }) {
+  const product = await fetch(
+    "https://fakestoreapi.com/products/" + params.pid
+  ).then((res) => res.json());
 
+  return { props: { product }, revalidate: 10 };
+}
+
+export default function Product({ product }) {
   return (
     <div className="flex flex-row h-screen  p-5 gap-3">
       <div className="h-full w-1/2 relative">
@@ -30,21 +36,21 @@ export default function Product() {
       </div>
 
       <div className="w-1/2 h-full border border-indigo-300/25 font-thin capitalize p-10 flex flex-col gap-2">
-        <h2 className="text-2xl font-light">{product.title}</h2>{" "}
-        <div class="flex items-center">
+        <h2 className="text-2xl font-light">{product.title}</h2>
+        <div className="flex items-center">
           <svg
-            class="w-5 h-5 text-yellow-400"
+            className="w-5 h-5 text-yellow-400"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
           </svg>
-          <p class="ml-2 text-sm font-light">{product.rating.rate}</p>
-          <span class="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
+          <p className="ml-2 text-sm font-light">{product.rating.rate}</p>
+          <span className="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
           <a
             href="#"
-            class="text-sm lowercase font-light underline hover:no-underline "
+            className="text-sm lowercase font-light underline hover:no-underline "
           >
             {product.rating.count} reviews
           </a>

@@ -1,8 +1,26 @@
+import { useSelector } from "react-redux";
+import useSWR from "swr";
 import Cart from "../../components/cart";
 import CartProduct from "../../components/cartProduct";
 
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcherArr = (...urls) => {
+  const f = (url) => fetch(url).then((res) => res.json());
+  return Promise.all(urls.map(f));
+};
+
 export default function Index() {
-  //paginate
+  const cart = useSelector((state) => state.cart);
+  const { data, error } = useSWR(
+    cart.products.map(
+      (product) => "https://fakestoreapi.com/products/" + product.productId
+    ),
+    fetcherArr
+  );
+
+  if (error) return <div>Failed to load</div>;
+  if (!data) return <div>Loading...</div>;
+
   return (
     <div className="h-screen flex flex-row flex-nowrap p-10 font-thin capitalize">
       <div className="w-2/5 flex flex-col flex-nowrap gap-3">
@@ -22,9 +40,9 @@ export default function Index() {
           </button>
         </div>
         <div className=" h-3/6 flex flex-row flex-nowrap gap-3 justify-center">
-          <CartProduct />
-          <CartProduct />
-          <CartProduct />
+          {data.map((prod) => (
+            <CartProduct key={"cartProd-" + prod.id} {...prod} />
+          ))}
         </div>
         <div className="total border-y h-2/6 py-4 flex flex-row flex-nowrap justify-between">
           <div className="w-1/2 px-2 py-1"></div>

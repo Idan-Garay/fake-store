@@ -1,11 +1,9 @@
-import useSWR, { useSWRConfig } from "swr";
+import useSWR from "swr";
 import { fetcher } from "../pages/api/fetcher";
 import Product from "./product";
 import grid from "../styles/grid.module.css";
-import Image from "next/image";
 
 export default function ProductGallery({ category }) {
-  const { cache } = useSWRConfig();
   const { data, error } = useSWR("https://fakestoreapi.com/products", fetcher);
 
   if (error) return <div>Failed to load</div>;

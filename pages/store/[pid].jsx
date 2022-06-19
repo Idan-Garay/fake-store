@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../features/cart/cartSlice";
 
 export async function getStaticPaths() {
   const products = await fetch("https://fakestoreapi.com/products").then(
@@ -24,6 +26,9 @@ export async function getStaticProps({ params }) {
 }
 
 export default function Product({ product }) {
+  const dispatch = useDispatch();
+  const handleAddToCart = () => dispatch(addToCart(product));
+
   return (
     <div className="flex flex-row h-screen  p-5 gap-3">
       <div className="h-full w-1/2 relative">
@@ -67,7 +72,10 @@ export default function Product({ product }) {
           <p className="text-lg">
             <span className="text-zinc-400">price: </span>${product.price}
           </p>
-          <button className="logo border border-indigo-300/25 px-5 py-2 hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">
+          <button
+            onClick={handleAddToCart}
+            className="logo border border-indigo-300/25 px-5 py-2 hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
+          >
             Add To Cart
           </button>
         </div>

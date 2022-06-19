@@ -5,9 +5,8 @@ export default function Index() {
   return (
     <div className="h-screen flex flex-row flex-nowrap p-10 font-thin capitalize">
       <div className="w-2/5 flex flex-col flex-nowrap gap-3">
-        <h1 className=" font-medium text-xl mb-4">Cart details</h1>
-        <h2 className="font-semibold">Choose cart:</h2>
-        <div className="flex flex-col flex-nowrap gap-3 ml-5">
+        <h1 className=" font-medium text-xl mb-4">Selected Cart:</h1>
+        <div className="flex flex-col flex-nowrap gap-3 ml-10">
           <Cart />
           <Cart />
           <Cart />

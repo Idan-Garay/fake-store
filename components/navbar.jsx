@@ -1,6 +1,10 @@
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
-export default function () {
+export default function Navbar() {
+  const cartLength = useSelector((state) => state.cart.products.length);
+  console.log("🚀 ~ file: navbar.jsx ~ line 6 ~ Navbar ~ cart", cartLength);
+
   return (
     <nav>
       <div className="flex justify-between">

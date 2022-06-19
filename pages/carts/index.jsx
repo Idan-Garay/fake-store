@@ -1,4 +1,5 @@
 import Cart from "../../components/cart";
+import CartProduct from "../../components/cartProduct";
 
 export default function Index() {
   //paginate
@@ -20,7 +21,11 @@ export default function Index() {
             Edit
           </button>
         </div>
-        <div className=" h-3/6"></div>
+        <div className=" h-3/6 flex flex-row flex-nowrap gap-3 justify-center">
+          <CartProduct />
+          <CartProduct />
+          <CartProduct />
+        </div>
         <div className="total border-y h-2/6">
           <div></div>
           <div></div>

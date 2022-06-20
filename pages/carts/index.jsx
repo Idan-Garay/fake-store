@@ -1,7 +1,8 @@
-import { useMemo } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import useSWR from "swr";
 import Cart from "../../components/cart";
+
 import CartProduct from "../../components/cartProduct";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -10,7 +11,18 @@ const fetcherArr = (...urls) => {
   return Promise.all(urls.map(f));
 };
 
+export function CartPaginate({ carts }) {
+  return (
+    <>
+      {carts.map((cart) => (
+        <Cart {...cart} />
+      ))}
+    </>
+  );
+}
+
 export default function Index() {
+  const [index, setIndex] = useState(3);
   const cart = useSelector((state) => state.cart);
   const { data, error } = useSWR(
     cart.products.map(
@@ -18,22 +30,46 @@ export default function Index() {
     ),
     fetcherArr
   );
+  const { data: cartData } = useSWR("https://fakestoreapi.com/carts", fetcher);
 
-  const allCarts = useSWR("https://fakestoreapi.com/carts", fetcher);
+  const handlePagination = (isNext = false) => {
+    let val = index;
+
+    if (isNext && val - cartData.length < 2) val += 3;
+    else if (!isNext && val - 3 >= 3) val -= 3;
+    setIndex(val);
+  };
+
+  if (!data) return <div>Loading...</div>;
+  if (!cartData) return <div>Loading...</div>;
 
   if (error) return <div>Failed to load</div>;
-  if (!data) return <div>Loading...</div>;
-  if (allCarts.error) return <div>Failed to load</div>;
-  if (!allCarts.data) return <div>Loading...</div>;
 
   return (
     <div className="h-screen flex flex-row flex-nowrap p-10 font-thin capitalize">
       <div className="w-2/5 flex flex-col flex-nowrap gap-3">
         <h1 className=" font-medium text-xl mb-4">Selected Cart:</h1>
-        <div className="flex flex-col flex-nowrap gap-3 ml-10">
-          {allCarts.data.map((cartData) => (
-            <Cart {...cartData} />
-          ))}
+        <div className="flex flex-col gap-2 items-center  w-5/6">
+          <div className="">
+            <CartPaginate carts={cartData.slice(index - 3, index)} />
+          </div>
+          <div className="flex flex-row flex-nowrap gap-2 justify-center mt-2">
+            <button
+              className="border border-indigo-300/25 px-2"
+              onClick={() => handlePagination(false)}
+            >
+              {"<"}
+            </button>
+            <span>
+              {index - 2} to {index}
+            </span>
+            <button
+              className="border border-indigo-300/25 px-2"
+              onClick={() => handlePagination(true)}
+            >
+              {">"}
+            </button>
+          </div>
         </div>
       </div>
       <div className="w-3/5 border border-indigo-300/25 gap-3 p-10">

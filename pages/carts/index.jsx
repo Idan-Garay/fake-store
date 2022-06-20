@@ -49,11 +49,11 @@ export default function Index() {
     <div className="h-screen flex flex-row flex-nowrap p-10 font-thin capitalize">
       <div className="w-2/5 flex flex-col flex-nowrap gap-3">
         <h1 className=" font-medium text-xl mb-4">Selected Cart:</h1>
-        <div className="flex flex-col gap-2 items-center  w-5/6">
-          <div className="">
+        <div className="flex flex-col items-center h-full w-5/6">
+          <div className="h-3/6 flex flex-col gap-2 ">
             <CartPaginate carts={cartData.slice(index - 3, index)} />
           </div>
-          <div className="flex flex-row flex-nowrap gap-2 justify-center mt-2">
+          <div className="flex flex-row flex-nowrap gap-2 justify-center mt-5">
             <button
               className="border border-indigo-300/25 px-2"
               onClick={() => handlePagination(false)}

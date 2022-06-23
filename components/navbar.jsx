@@ -1,10 +1,6 @@
 import Link from "next/link";
 
-import { useSelector } from "react-redux";
-
 export default function Navbar() {
-  const productsLength = useSelector((state) => state.cart.products.length);
-
   return (
     <nav>
       <div className="flex justify-between">
@@ -21,7 +17,7 @@ export default function Navbar() {
               <div className="flex gap-2 cursor-pointer">
                 <a className="hover:text-gray-300">Cart</a>
                 <span className="inline-flex items-center justify-center p-2 mr-2 text-xs font-bold leading-none text-black bg-white rounded-full">
-                  {productsLength}
+                  {/* {result.cart.products.length} */}0
                 </span>
               </div>
             </Link>

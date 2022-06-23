@@ -1,7 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../features/cart/cartSlice";
 
 export default function Product(props) {
   const pid = props.id;
@@ -9,8 +7,6 @@ export default function Product(props) {
     props.title || "Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport";
   const price = props.price || "$599";
   const pImg = props.image || "#";
-
-  const dispatch = useDispatch();
 
   return (
     <div className="flex flex-wrap min-w-full w-full relative">
@@ -27,7 +23,8 @@ export default function Product(props) {
               <h4 className="h-2/5 truncate">{pName}</h4>
               <div className="flex flex-nowrap justify-between h-1/3">
                 <h6>${price}</h6>
-                <button onClick={() => dispatch(addToCart({ ...props }))}>
+                {/* here */}
+                <button onClick={() => {}}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-full w-full p-1 rounded-full hover:bg-white hover:text-zinc-600"

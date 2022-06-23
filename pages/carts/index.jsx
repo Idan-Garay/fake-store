@@ -1,9 +1,7 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import useSWR from "swr";
-import Cart from "../../components/cart";
 
-import CartProduct from "../../components/cartProduct";
+import Cart from "../../components/cart";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 const fetcherArr = (...urls) => {
@@ -15,7 +13,7 @@ export function CartPaginate({ carts }) {
   return (
     <>
       {carts.map((cart) => (
-        <Cart {...cart} />
+        <Cart key={`cart-${cart.id}`} {...cart} />
       ))}
     </>
   );
@@ -23,13 +21,13 @@ export function CartPaginate({ carts }) {
 
 export default function Index() {
   const [index, setIndex] = useState(3);
-  const cart = useSelector((state) => state.cart);
-  const { data, error } = useSWR(
-    cart.products.map(
-      (product) => "https://fakestoreapi.com/products/" + product.productId
-    ),
-    fetcherArr
-  );
+
+  // const { data, error } = useSWR(
+  //   cart.products.map(
+  //     (product) => "https://fakestoreapi.com/products/" + product.productId
+  //   ),
+  //   fetcherArr
+  // );
   const { data: cartData } = useSWR("https://fakestoreapi.com/carts", fetcher);
 
   const handlePagination = (isNext = false) => {
@@ -40,10 +38,10 @@ export default function Index() {
     setIndex(val);
   };
 
-  if (!data) return <div>Loading...</div>;
+  // if (!data) return <div>Loading...</div>;
   if (!cartData) return <div>Loading...</div>;
 
-  if (error) return <div>Failed to load</div>;
+  // if (error) return <div>Failed to load</div>;
 
   return (
     <div className="h-screen flex flex-row flex-nowrap p-10 font-thin capitalize">
@@ -80,9 +78,9 @@ export default function Index() {
           </button>
         </div>
         <div className=" h-3/6 flex flex-row flex-nowrap gap-4 justify-start py-2">
-          {data.map((prod) => (
+          {/* {data.map((prod) => (
             <CartProduct key={"cartProd-" + prod.id} {...prod} />
-          ))}
+          ))} */}
         </div>
         <div className="total border-y h-2/6 py-4 flex flex-row flex-nowrap justify-between">
           <div className="w-1/2 px-2 py-1"></div>
@@ -91,32 +89,36 @@ export default function Index() {
               <li className="flex flex-row flex-nowrap justify-between">
                 <span className="text-zinc-400">Total qty. : </span>
                 <span>
-                  {cart.products.reduce(
+                  {/* {cart.products.reduce(
                     (prev, curr) => parseInt(curr.quantity) + prev,
                     0
-                  )}
+                  )} */}
                 </span>
               </li>
               <li className="flex flex-row flex-nowrap justify-between">
                 <span className="text-zinc-400">Unique items: </span>
-                <span>{cart.products.length}</span>
+                {/* <span>{cart.products.length}</span> */}
               </li>
               <li className="flex flex-row flex-nowrap justify-between text-lg mt-1">
                 <span className="">Total: </span>
                 <span className="font-light">
-                  ${" "}
+                  {/* ${" "}
                   {cart.products.reduce(
                     (prev, curr, idx) =>
                       data[idx].price * parseInt(curr.quantity) + prev,
                     0
-                  )}
+                  )} */}
                 </span>
               </li>
             </ul>
           </div>
         </div>
         <div className="buttons h-1/6 flex flex-row flex-nowrap justify-end items-center">
-          <button className="border border-indigo-300/25 px-5 py-2 hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">
+          <button
+            // emptyCart
+            onClick={() => {}}
+            className="border border-indigo-300/25 px-5 py-2 hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
+          >
             Place Order
           </button>
         </div>

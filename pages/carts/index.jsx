@@ -19,7 +19,8 @@ export function CartPaginate({ carts, setCartId }) {
 
 export default function Index() {
   const [index, setIndex] = useState(3);
-  const { carts, cartId, isLoading, setCartId, isError } = global.store;
+  const { carts, cartId, placeOrder, isLoading, setCartId, isError } =
+    global.store;
   const products = global.storeProducts.products;
 
   const handlePagination = (isNext = false) => {
@@ -113,8 +114,7 @@ export default function Index() {
         </div>
         <div className="buttons h-1/6 flex flex-row flex-nowrap justify-end items-center">
           <button
-            // emptyCart
-            onClick={() => {}}
+            onClick={placeOrder}
             className="border border-indigo-300/25 px-5 py-2 hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
           >
             Place Order

@@ -1,13 +1,9 @@
 import { useState } from "react";
-import useSWR from "swr";
 
 import Cart from "../../components/cart";
+import { useCarts } from "../api/useHooks";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
-const fetcherArr = (...urls) => {
-  const f = (url) => fetch(url).then((res) => res.json());
-  return Promise.all(urls.map(f));
-};
 
 export function CartPaginate({ carts }) {
   return (
@@ -21,14 +17,7 @@ export function CartPaginate({ carts }) {
 
 export default function Index() {
   const [index, setIndex] = useState(3);
-
-  // const { data, error } = useSWR(
-  //   cart.products.map(
-  //     (product) => "https://fakestoreapi.com/products/" + product.productId
-  //   ),
-  //   fetcherArr
-  // );
-  const { data: cartData } = useSWR("https://fakestoreapi.com/carts", fetcher);
+  const { carts, isLoading, isError } = useCarts();
 
   const handlePagination = (isNext = false) => {
     let val = index;
@@ -38,10 +27,7 @@ export default function Index() {
     setIndex(val);
   };
 
-  // if (!data) return <div>Loading...</div>;
-  if (!cartData) return <div>Loading...</div>;
-
-  // if (error) return <div>Failed to load</div>;
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <div className="h-screen flex flex-row flex-nowrap p-10 font-thin capitalize">
@@ -49,7 +35,7 @@ export default function Index() {
         <h1 className=" font-medium text-xl mb-4">Selected Cart:</h1>
         <div className="flex flex-col items-center h-full w-5/6">
           <div className="h-3/6 flex flex-col gap-2 ">
-            <CartPaginate carts={cartData.slice(index - 3, index)} />
+            <CartPaginate carts={carts.slice(index - 3, index)} />
           </div>
           <div className="flex flex-row flex-nowrap gap-2 justify-center mt-5">
             <button

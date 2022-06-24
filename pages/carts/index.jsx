@@ -76,6 +76,7 @@ export default function Index() {
               <CartProduct
                 key={"cartProd-" + prod.productId}
                 {...products[parseInt(prod.productId) - 1]}
+                quantity={prod.quantity}
               />
             ))}
         </div>

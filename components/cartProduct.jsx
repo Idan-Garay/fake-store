@@ -5,6 +5,7 @@ export default function CartProduct(props) {
   const pName = props.title || "Apple Watch t";
   const price = props.price || " 599";
   const pImg = props.image || "/helloworld.png";
+  const quantity = props.quantity || null;
   return (
     <div className="flex flex-col flex-nowrap h-full relative gap-3 w-44">
       <div className="h-3/4  w-full p-1 md:p-2 relative justify-center bg-white">
@@ -16,7 +17,12 @@ export default function CartProduct(props) {
         />
       </div>
       <h4 className=" truncate">{pName}</h4>
-      <h6>$ {price}</h6>
+      <div className="flex flex-row flex-nowrap justify-between lowercase">
+        <h6>$ {price}</h6>
+        <p>
+          <span className="text-zinc-400">x</span> {quantity}
+        </p>
+      </div>
     </div>
   );
 }

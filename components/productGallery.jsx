@@ -1,19 +1,13 @@
 import { useContext } from "react";
 import useSWR from "swr";
-import { FakeStoreContext } from "../pages/_app";
 import grid from "../styles/grid.module.css";
 import Product from "./product";
 
 export const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function ProductGallery({ category }) {
-  const { data: products, error } = useSWR(
-    "https://fakestoreapi.com/products",
-    fetcher
-  );
-
-  if (error) return <>Failed to load data</>;
-  if (!products) return <>Loading data... </>;
+  const products = global.storeProducts.products;
+  if (!products) return <>Loading products...</>;
 
   return (
     <section className="overflow-scroll w-full text-gray-700 ">

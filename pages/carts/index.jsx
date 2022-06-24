@@ -64,11 +64,8 @@ export default function Index() {
         </div>
       </div>
       <div className="w-3/5 border border-indigo-300/25 gap-3 p-10">
-        <div className="flex flex-row flex-nowrap justify-between items-center">
+        <div className="flex flex-row flex-nowrap justify-between items-start">
           <h2 className="font-medium text-xl">Your order</h2>
-          <button className="border border-indigo-300/25 px-5 py-2 hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">
-            Edit
-          </button>
         </div>
         <div className=" h-3/6 flex flex-row flex-nowrap gap-4 justify-start py-2">
           {products &&

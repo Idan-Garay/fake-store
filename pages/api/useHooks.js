@@ -10,9 +10,20 @@ export function useCarts() {
   );
   const [cartId, setCartId] = useState(5);
 
+  const addProduct = (product) => {
+    const products = carts[cartId - 1].products;
+    const idx = products.findIndex((prod) => prod.productId === product.id);
+
+    if (idx !== -1) carts[cartId - 1].products[idx].quantity += 1;
+    else {
+      carts[cartId - 1].products.push({ productId: product.id, quantity: 1 });
+    }
+  };
+
   return {
     cartId,
     setCartId,
+    addProduct,
     carts,
     isLoading: !error && !carts,
     isError: error,

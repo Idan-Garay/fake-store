@@ -71,7 +71,7 @@ export default function Index() {
         </div>
         <div className=" h-3/6 flex flex-row flex-nowrap gap-4 justify-start py-2">
           {products &&
-            carts[cartId].products.map((prod) => (
+            carts[cartId - 1].products.map((prod) => (
               <CartProduct
                 key={"cartProd-" + prod.productId}
                 {...products[parseInt(prod.productId) - 1]}
@@ -85,7 +85,7 @@ export default function Index() {
               <li className="flex flex-row flex-nowrap justify-between">
                 <span className="text-zinc-400">Total qty. : </span>
                 <span>
-                  {carts[cartId].products.reduce(
+                  {carts[cartId - 1].products.reduce(
                     (prev, curr) => parseInt(curr.quantity) + prev,
                     0
                   )}
@@ -93,13 +93,13 @@ export default function Index() {
               </li>
               <li className="flex flex-row flex-nowrap justify-between">
                 <span className="text-zinc-400">Unique items: </span>
-                <span>{carts[cartId].products.length}</span>
+                <span>{carts[cartId - 1].products.length}</span>
               </li>
               <li className="flex flex-row flex-nowrap justify-between text-lg mt-1">
                 <span className="">Total: </span>
                 <span className="font-light">
                   {products &&
-                    carts[cartId].products.reduce(
+                    carts[cartId - 1].products.reduce(
                       (prev, curr) =>
                         products[parseInt(curr.productId) - 1].price *
                           parseInt(curr.quantity) +

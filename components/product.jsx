@@ -7,6 +7,7 @@ export default function Product(props) {
     props.title || "Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport";
   const price = props.price || "$599";
   const pImg = props.image || "#";
+  const addProduct = global.store.addProduct;
 
   return (
     <div className="flex flex-wrap min-w-full w-full relative">
@@ -23,8 +24,11 @@ export default function Product(props) {
               <h4 className="h-2/5 truncate">{pName}</h4>
               <div className="flex flex-nowrap justify-between h-1/3">
                 <h6>${price}</h6>
-                {/* here */}
-                <button onClick={() => {}}>
+                <button
+                  onClick={() => {
+                    addProduct({ id: pid });
+                  }}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-full w-full p-1 rounded-full hover:bg-white hover:text-zinc-600"

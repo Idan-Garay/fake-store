@@ -19,7 +19,7 @@ export default function () {
               <div className="flex gap-2 cursor-pointer">
                 <a className="hover:text-gray-300">Cart</a>
                 <span className="inline-flex items-center justify-center p-2 mr-2 text-xs font-bold leading-none text-black bg-white rounded-full">
-                  {state.carts && state.carts[state.cartId].products.length}
+                  {state.carts && state.carts[state.cartId - 1].products.length}
                 </span>
               </div>
             </Link>

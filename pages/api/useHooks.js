@@ -18,3 +18,12 @@ export function useCarts() {
     isError: error,
   };
 }
+
+export function useProducts() {
+  const { data: products, pError } = useSWR(
+    "https://fakestoreapi.com/products",
+    fetcher
+  );
+
+  return { products, pIsLoading: !pError && !products, error: pError };
+}

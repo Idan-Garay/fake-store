@@ -8,13 +8,23 @@ export default function CartProduct(props) {
   const quantity = props.quantity || null;
   return (
     <div className="flex flex-col flex-nowrap h-full relative gap-3 w-44">
-      <div className="h-3/4  w-full p-1 md:p-2 relative justify-center bg-white">
+      <div className="cursor-pointer h-3/4  w-full p-1 md:p-2 relative bg-white flex flex-col">
         <Image
           alt="gallery"
-          className="block object-contain object-center w-full h-full hover:shadow-2xl"
+          className="block object-contain object-center w-full h-full hover:shadow-2xl   absolute inset-0 z-0"
           src={pImg}
           layout="fill"
         />
+        <div className=" opacity-0 hover:opacity-100 duration-300 absolute inset-0 z-10 flex justify-center items-end">
+          <div className="cursor-pointer bg-black h-1/4 w-full text-white flex flex-row justify-evenly ">
+            <button className="hover:bg-zinc-400/25 w-full">
+              <strong>+</strong>
+            </button>
+            <button className="hover:bg-zinc-400/25 w-full">
+              <strong>-</strong>
+            </button>
+          </div>
+        </div>
       </div>
       <h4 className=" truncate">{pName}</h4>
       <div className="flex flex-row flex-nowrap justify-between lowercase">

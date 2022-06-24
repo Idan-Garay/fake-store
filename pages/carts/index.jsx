@@ -37,13 +37,13 @@ export default function Index() {
       <div className="w-2/5 flex flex-col flex-nowrap gap-3">
         <h1 className=" font-medium text-xl mb-4">Selected Cart:</h1>
         <div className="flex flex-col items-center h-full w-5/6">
-          <div className="h-3/6 flex flex-col gap-2 ">
+          <div className="h-5/6 flex flex-col gap-2 ">
             <CartPaginate
               carts={carts.slice(index - 3, index)}
               setCartId={setCartId}
             />
           </div>
-          <div className="flex flex-row flex-nowrap gap-2 justify-center mt-5">
+          <div className="flex flex-row flex-nowrap gap-2 justify-center">
             <button
               className="border border-indigo-300/25 px-2"
               onClick={() => handlePagination(false)}

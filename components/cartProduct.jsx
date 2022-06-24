@@ -6,6 +6,7 @@ export default function CartProduct(props) {
   const price = props.price || " 599";
   const pImg = props.image || "/helloworld.png";
   const quantity = props.quantity || null;
+  const { addProduct, deleteProduct } = global.store;
   return (
     <div className="flex flex-col flex-nowrap h-full relative gap-3 w-44">
       <div className="cursor-pointer h-3/4  w-full p-1 md:p-2 relative bg-white flex flex-col">
@@ -17,10 +18,20 @@ export default function CartProduct(props) {
         />
         <div className=" opacity-0 hover:opacity-100 duration-300 absolute inset-0 z-10 flex justify-center items-end">
           <div className="cursor-pointer bg-black h-1/4 w-full text-white flex flex-row justify-evenly ">
-            <button className="hover:bg-zinc-400/25 w-full">
+            <button
+              onClick={() => {
+                addProduct({ id: pid });
+              }}
+              className="hover:bg-zinc-400/25 w-full"
+            >
               <strong>+</strong>
             </button>
-            <button className="hover:bg-zinc-400/25 w-full">
+            <button
+              onClick={() => {
+                deleteProduct({ id: pid });
+              }}
+              className="hover:bg-zinc-400/25 w-full"
+            >
               <strong>-</strong>
             </button>
           </div>

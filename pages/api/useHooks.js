@@ -25,6 +25,23 @@ export function useCarts() {
     }
     setCarts([...carts]);
   };
+  const deleteProduct = (product) => {
+    const products = carts[cartId - 1].products;
+    const idx = products.findIndex((prod) => prod.productId === product.id);
+
+    if (idx !== -1) {
+      carts[cartId - 1].products[idx].quantity -= 1;
+      if (carts[cartId - 1].products[idx].quantity === 0) {
+        console.log(carts[cartId - 1].products[idx]);
+        carts[cartId - 1].products = products.filter(
+          (product) => product.quantity > 0
+        );
+        console.log(carts[cartId - 1].products);
+      }
+    }
+
+    setCarts([...carts]);
+  };
 
   const placeOrder = () => {
     carts[cartId - 1].products = [];
@@ -35,6 +52,7 @@ export function useCarts() {
     cartId,
     setCartId,
     addProduct,
+    deleteProduct,
     placeOrder,
     carts,
     isLoading: !error && !carts,

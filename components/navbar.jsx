@@ -1,6 +1,10 @@
 import Link from "next/link";
+import { useCarts } from "../pages/api/useHooks";
 
-export default function Navbar() {
+export default function () {
+  const { cartId, carts, isLoading } = useCarts();
+
+  if (isLoading) return <div>Loading...</div>;
   return (
     <nav>
       <div className="flex justify-between">
@@ -17,7 +21,7 @@ export default function Navbar() {
               <div className="flex gap-2 cursor-pointer">
                 <a className="hover:text-gray-300">Cart</a>
                 <span className="inline-flex items-center justify-center p-2 mr-2 text-xs font-bold leading-none text-black bg-white rounded-full">
-                  {/* {result.cart.products.length} */}0
+                  {carts[cartId].products.length}
                 </span>
               </div>
             </Link>

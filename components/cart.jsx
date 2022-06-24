@@ -1,9 +1,10 @@
 export default function Cart(props) {
   const date = props.date || "2020-10-10";
   const products = props.products || [];
+  const onClick = props.onClick;
 
   return (
-    <div className="cursor-pointer hover:bg-zinc-600/25">
+    <div className="cursor-pointer hover:bg-zinc-600/25" onClick={onClick}>
       <div className="flex flex-row nowrap gap-5 p-5 border justify-center items-center border-indigo-300/25">
         <svg
           xmlns="http://www.w3.org/2000/svg"

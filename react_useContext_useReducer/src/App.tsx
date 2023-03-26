@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './App.css'
+import Navbar from './navbar';
 import Tabs from "./tabs";
 
 
@@ -11,8 +12,8 @@ function App() {
   }
 
   return (
-    <div className="App bg-red-400">
-
+    <div className="App  h-[100vh] w-[100vw]">
+      <Navbar/>
 
       <Tabs category='all' handleClick={onClick} categories={["all", "category 1"]}/>
        

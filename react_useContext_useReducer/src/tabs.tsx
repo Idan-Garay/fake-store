@@ -8,7 +8,7 @@ interface TabsProps {
 
 export default function Tabs({ category, handleClick, categories }: TabsProps) {
   return (
-    <ul className="border-2  flex flex-wrap text-sm font-medium text-center  dark:border-gray-700">
+    <ul className="border mt-12 mx-5 pl-1 pb-1 border-t-0 border-l-0 border-r-0  flex flex-wrap text-sm font-medium text-center  dark:border-gray-700">
       <li
         className=" mr-2 inline-block"
         role="presentation"

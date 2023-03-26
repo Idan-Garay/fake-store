@@ -1,9 +1,0 @@
-.gallery {
-  display: grid;
-  place-content: center;
-  grid-template:
-    repeat(auto-fill, minmax(14rem, 24rem)) /
-    repeat(auto-fill, minmax(14rem, 18rem));
-  grid-auto-rows: minmax(14rem, 24rem);
-  gap: 0.7rem;
-}

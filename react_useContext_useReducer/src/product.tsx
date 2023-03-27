@@ -18,7 +18,7 @@ export default function Product(props:ProductType) {
   const addProduct = () => {};
 
   return (
-    <div className="border border-red-500 min-h-[20rem] min-w-[18rem] h-32 w-full flex flex-wrap relative">
+    <div className="min-h-[20rem] min-w-[18rem] h-32 w-full flex flex-wrap relative">
       {/* <div className="h-full w-full p-1 md:p-2 relative"> */}
         {/* <Image
           alt="gallery"
@@ -28,20 +28,21 @@ export default function Product(props:ProductType) {
         /> */}
         <img src="#" alt="product_image" />
           <div className=" opacity-0 hover:opacity-100 hover:bg-zinc-600/25 duration-300 absolute inset-0 z-10 flex justify-center items-end">
-            <div className="cursor-pointer  h-1/4 w-full text-white flex-col">
-              <h4 className="h-2/5 truncate">{pName}</h4>
-              <div className="flex flex-nowrap justify-between h-1/3">
+            <div className="cursor-pointer h-2/6 w-full text-white flex-col">
+              <h4 className="h-2/6 truncate">{pName}</h4>
+              <div className="flex flex-nowrap justify-between h-4/6">
                 <h6>{price}</h6>
                 <button
                   onClick={() => {
                     // addProduct({ id: pid });
                   }}
+                  className="self-start h-full w-1/4"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-full w-full p-1 rounded-full hover:bg-white hover:text-zinc-600"
+                    className="h-full w-full p-1 rounded-full"
                     viewBox="0 0 20 20"
-                    fill="currentColor"
+                    fill="black"
                   >
                     <path
                       fillRule="evenodd"

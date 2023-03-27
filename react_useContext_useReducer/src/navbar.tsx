@@ -1,6 +1,10 @@
 import React from "react";
 
-export default function () {
+interface NavbarProps {
+  handleClick: (page: string) => void
+}
+
+export default function ({handleClick}: NavbarProps) {
 
   return (
     <nav>
@@ -13,7 +17,7 @@ export default function () {
         <div className="py-5 px-5 space-y-6">
           <div className="flex items-center space-x-4 gap-5">
               <div className="flex gap-2 cursor-pointer">
-                <a className="hover:text-gray-300">Cart</a>
+                <a className="hover:text-gray-300" href="/cart">Cart</a>
                 <span className="inline-flex items-center justify-center p-2 mr-2 text-xs font-bold leading-none text-black bg-white rounded-full">
                 </span>
               </div>

@@ -6,7 +6,6 @@ interface ProductGalleryProps {
 }
 
 export default function ProductGallery({ category }: ProductGalleryProps) {
-  // const products = [global.storeProducts.products];
   const products: Array<ProductType> = [
     ...Array(10).fill(
       {

@@ -9,7 +9,17 @@ export type ProductType = {
   image: string
 }
 
+export const productDefaultValue: ProductType = {
+  id: "id1",
+  title: "Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport",
+  price: "$599",
+  image: "#",
+  description: "description 1",
+  category: "all"
+}
+
 export default function Product(props:ProductType) {
+  console.log(props)
   const pid = props.id;
   const pName =
     props.title || "Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport";
@@ -26,7 +36,7 @@ export default function Product(props:ProductType) {
           src={pImg}
           layout="fill"
         /> */}
-        <img src="#" alt="product_image" />
+        <img src={pImg} alt="product_image" className="h-full w-full bg-white object-contain" />
           <div className=" opacity-0 hover:opacity-100 hover:bg-zinc-600/25 duration-300 absolute inset-0 z-10 flex justify-center items-end">
             <div className="cursor-pointer h-2/6 w-full text-white flex-col">
               <h4 className="h-2/6 truncate">{pName}</h4>

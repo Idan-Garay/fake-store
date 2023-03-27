@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Index = () => {
+const CartPage = () => {
   return (
     <div>Cart</div>
   )
 }
 
-export default Index
+export default CartPage

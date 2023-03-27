@@ -1,10 +1,7 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
-interface NavbarProps {
-  handleClick: (page: string) => void
-}
-
-export default function ({handleClick}: NavbarProps) {
+export default function () {
 
   return (
     <nav>
@@ -17,7 +14,7 @@ export default function ({handleClick}: NavbarProps) {
         <div className="py-5 px-5 space-y-6">
           <div className="flex items-center space-x-4 gap-5">
               <div className="flex gap-2 cursor-pointer">
-                <a className="hover:text-gray-300" href="/cart">Cart</a>
+                <NavLink className="hover:text-gray-300" to="/cart">Cart</NavLink>
                 <span className="inline-flex items-center justify-center p-2 mr-2 text-xs font-bold leading-none text-black bg-white rounded-full">
                 </span>
               </div>

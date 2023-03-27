@@ -19,8 +19,6 @@ export const productDefaultValue: ProductType = {
 }
 
 export default function Product(props:ProductType) {
-  console.log(props)
-  const pid = props.id;
   const pName =
     props.title || "Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport";
   const price = props.price || "$599";
@@ -29,19 +27,12 @@ export default function Product(props:ProductType) {
 
   return (
     <div className="min-h-[20rem] min-w-[18rem] h-32 w-full flex flex-wrap relative">
-      {/* <div className="h-full w-full p-1 md:p-2 relative"> */}
-        {/* <Image
-          alt="gallery"
-          className="block object-cover object-center w-full h-full hover:shadow-2xl  absolute inset-0 z-0"
-          src={pImg}
-          layout="fill"
-        /> */}
-        <img src={pImg} alt="product_image" className="h-full w-full bg-white object-contain" />
-          <div className=" opacity-0 hover:opacity-100 hover:bg-zinc-600/25 duration-300 absolute inset-0 z-10 flex justify-center items-end">
-            <div className="cursor-pointer h-2/6 w-full text-white flex-col">
+        <img src={pImg} alt="product_image" className="h-full w-full bg-white object-contain p-3" />
+          <div className=" opacity-0 hover:opacity-100 hover:bg-zinc-800/25 duration-300 absolute inset-0 z-10 flex justify-center items-end">
+            <div className="cursor-pointer h-2/6 w-full text-white flex-col p-1">
               <h4 className="h-2/6 truncate">{pName}</h4>
               <div className="flex flex-nowrap justify-between h-4/6">
-                <h6>{price}</h6>
+                <h6>${price}</h6>
                 <button
                   onClick={() => {
                     // addProduct({ id: pid });
@@ -64,8 +55,6 @@ export default function Product(props:ProductType) {
               </div>
             </div>
           </div>
-        {/* </Link> */}
-      {/* </div> */}
     </div>
   );
 }

@@ -16,28 +16,32 @@ function App() {
   const [page, setPage] = useState('/')
   const [products, setProducts] = useState<Array<ProductType>>([])
   const [categories, setCategories] = useState<Array<string>>([])
-  const onClick = (category = "all") => {
-    return
+  const [category, setCategory] = useState<string>("all")
+  const filteredProducts: Array<ProductType> = products.length > 0 ? products.filter((prod) => category.toLowerCase() === "all" || prod.category.toLowerCase() === category.toLowerCase()) : []
+  console.log(filteredProducts)
+  const categoryClick = (category = "all") => {
+    console.log(category)
+    setCategory(category)
   }
 
   // useEffect shouldn't contain actions
   useEffect(() => {
-    // const abortController = new AbortController()
+    const abortController = new AbortController();
     (async () => {
       await Promise.all([
         fetchData<Array<string>>('https://fakestoreapi.com/products/categories', setCategories),
         fetchData('https://fakestoreapi.com/products', setProducts),
       ])
     })()
-    // return () => abortController.abort()
+    return () => abortController.abort()
   }, [])
-  console.log(products)
+
   return (
     <div className="App h-[100vh] w-[100vw] flex flex-col">
       <Navbar handleClick={(page) => { setPage(page) }} />
 
-      <Tabs category='all' handleClick={onClick} categories={categories} />
-      <ProductGallery category='all' products={products} />
+      <Tabs category={category} handleClick={categoryClick} categories={categories} />
+      <ProductGallery category={category} products={filteredProducts} />
     </div>
   )
 }

@@ -11,7 +11,7 @@ import IndexPage from './Index';
 function App() {
   
   return (
-    <div className="App h-[100vh] w-[100vw] flex flex-col">
+    <div className="App min-h-[100vh] w-[100vw] flex flex-col">
       <Navbar />
 
       <Routes>

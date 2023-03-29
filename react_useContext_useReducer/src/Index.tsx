@@ -12,8 +12,8 @@ async function fetchData<Type>(url: string, setState: Dispatch<React.SetStateAct
 
 const IndexPage = () => {
     const [products, setProducts] = useState<Array<ProductType>>([])
-    const filteredProducts: Array<ProductType> = products.length > 0 ? products.filter((prod) => category.toLowerCase() === "all" || prod.category.toLowerCase() === category.toLowerCase()) : []
     const [category, setCategory] = useState<string>("all")
+    const filteredProducts: Array<ProductType> = products.length > 0 ? products.filter((prod) => category.toLowerCase() === "all" || prod.category.toLowerCase() === category.toLowerCase()) : []
     const [categories, setCategories] = useState<Array<string>>([])
     
     const categoryClick = (category = "all") => {

@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import { CartContext, CartDispatchContext } from "./App"
-import { Cart, CartProduct } from "./cart/Index"
+import { Cart, CartProductType } from "./cart/Index"
 
 export type ProductType = {
   id: string
@@ -24,7 +24,7 @@ interface ProductProps {
   product: ProductType
 }
 
-export const addProduct = (product: ProductType, items: Array<CartProduct>, dispatch: React.Dispatch<Partial<Cart>>) => {
+export const addProduct = (product: ProductType, items: Array<CartProductType>, dispatch: React.Dispatch<Partial<Cart>>) => {
   const index = items.findIndex(item => item.product.id === product.id)
   const newItems = [...items]
 
@@ -57,7 +57,7 @@ export default function Product({ product }: ProductProps) {
             <h6>${price}</h6>
             <button
               onClick={() => {
-                addProduct(product, [...cartState.items] as Array<CartProduct>, dispatch);
+                addProduct(product, [...cartState.items] as Array<CartProductType>, dispatch);
               }}
               className="self-start h-full w-1/4"
             >

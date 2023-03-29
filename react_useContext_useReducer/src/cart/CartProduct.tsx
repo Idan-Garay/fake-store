@@ -1,14 +1,46 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { BiTrash, BiMinusCircle, BiPlusCircle } from "react-icons/bi";
-import { ProductType } from '../product';
-import { CartProductType } from './Index';
+import { CartContext, CartDispatchContext } from '../App';
+import { addProduct, ProductType } from '../product';
+import { Cart, CartProductType } from './Index';
 
 interface CartProductProps {
     cartProduct: CartProductType
 }
 
+export const decreaseProduct = (product: ProductType, items: Array<CartProductType>, dispatch: React.Dispatch<Partial<Cart>>) => {
+    const index = items.findIndex(item => item.product.id === product.id)
+
+    if (index == -1) {
+        console.log(items[1].product.id === product.id)
+
+        return
+    }
+
+    const newItems = [...items]
+    if (newItems[index].qty === 1) {
+        newItems.splice(index, 1)
+        console.log(newItems)
+    } else {
+        newItems[index].qty--
+    }
+
+    return dispatch({
+        items: newItems
+    })
+}
+
+
+
 const CartProduct = (props: CartProductProps) => {
-    const {title, price, description, image} = props.cartProduct.product
+    const { product } = props.cartProduct
+    const { title, price, description, image } = product
+    const cartState = useContext(CartContext)
+    const dispatch = useContext(CartDispatchContext) as React.Dispatch<Partial<Cart>>
+
+    const removeProduct = () => {
+        dispatch({ items: cartState.items.filter(item => item.product.id !== product.id) })
+    }
 
     return (
         <div className="products max-h-[18rem] border-b py-3 flex flex-col">
@@ -26,10 +58,10 @@ const CartProduct = (props: CartProductProps) => {
                     <div className="product_content_utilities text-2xl flex justify-between h-1/6 ">
                         <span className='block font-semibold'>${price}</span>
                         <div className='flex gap-x-3 items-center'>
-                            <BiTrash className='mr-3 text-black text-opacity-50' />
-                            <BiMinusCircle />
+                            <BiTrash className='mr-3 text-black text-opacity-50 hover:cursor-pointer' onClick={removeProduct} />
+                            <BiMinusCircle className='hover:cursor-pointer' onClick={() => { decreaseProduct(product, cartState.items, dispatch) }} />
                             <span className='block text-black text-opacity-50 text-lg min-w-8 text-center '>{props.cartProduct.qty}</span>
-                            <BiPlusCircle />
+                            <BiPlusCircle className='hover:cursor-pointer' onClick={() => { addProduct(product, cartState.items, dispatch) }} />
                         </div>
                     </div>
                 </div>

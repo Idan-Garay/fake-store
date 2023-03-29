@@ -37,7 +37,7 @@ const IndexPage = () => {
     return (
         <>
             <Tabs category={category} handleClick={categoryClick} categories={categories} />
-            <ProductGallery category={category} products={filteredProducts} />
+            <ProductGallery products={filteredProducts} />
         </>
     )
 }

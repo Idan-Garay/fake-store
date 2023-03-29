@@ -1,7 +1,6 @@
 import React from 'react'
 import { BiTrash, BiMinusCircle, BiPlusCircle } from "react-icons/bi";
 
-
 const CartProduct = () => {
     return (
         <div className="products h-[18rem] border-b py-3 flex flex-col flex-grow-0">

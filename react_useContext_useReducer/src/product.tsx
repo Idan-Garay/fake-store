@@ -1,4 +1,6 @@
-import React from "react"
+import React, { useContext } from "react"
+import { CartContext, CartDispatchContext } from "./App"
+import { Cart } from "./cart/Index"
 
 export type ProductType = {
   id: string
@@ -18,12 +20,34 @@ export const productDefaultValue: ProductType = {
   category: "all"
 }
 
-export default function Product(props:ProductType) {
+interface ProductProps {
+  product: ProductType
+}
+
+export default function Product({product}:ProductProps) {
+  const dispatch = useContext(CartDispatchContext) as React.Dispatch<Partial<Cart>>
+  const cartState = useContext(CartContext)
   const pName =
-    props.title || "Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport";
-  const price = props.price || "$599";
-  const pImg = props.image || "#";
-  const addProduct = () => {};
+    product.title || "Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport";
+  const price = product.price || "$599";
+  const pImg = product.image || "#";
+  const pId = product.id || "0";
+  const addProduct = () => {
+    const {items} = cartState
+    const index = items.findIndex(item => item.product.id === pId)
+    const newItems = [...items]
+
+    if (index === -1) {
+      newItems.push({product: product, qty: 1})
+    } else {
+      newItems[index].qty++
+    }
+
+    dispatch({
+      ...cartState,
+      items: newItems
+    })
+  };
 
   return (
     <div className="min-h-[20rem] min-w-[18rem] h-32 w-full flex flex-wrap relative">
@@ -35,7 +59,7 @@ export default function Product(props:ProductType) {
                 <h6>${price}</h6>
                 <button
                   onClick={() => {
-                    // addProduct({ id: pid });
+                    addProduct();
                   }}
                   className="self-start h-full w-1/4"
                 >

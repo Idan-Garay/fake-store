@@ -1,16 +1,11 @@
 import React, { useContext } from 'react'
 import { BiTrash, BiMinusCircle, BiPlusCircle } from "react-icons/bi";
-import { CartContext, CartDispatchContext } from '../App';
-import { addProduct, ProductType } from '../product';
-import { Cart, CartProductType } from './Index';
+import { Cart, CartContext, CartDispatchContext, CartProductType } from '../../context/CartContext';
+import { addProduct } from '../product';
 
 interface CartProductProps {
     cartProduct: CartProductType
 }
-
-
-
-
 
 const CartProduct = (props: CartProductProps) => {
     const { product } = props.cartProduct
@@ -20,7 +15,7 @@ const CartProduct = (props: CartProductProps) => {
 
     const removeProduct = () => {
         const {qty} = props.cartProduct
-        const newAmount: number = cartState.amount - (parseFloat(product.price) * qty)
+        const newAmount: number = cartState.amount - (product.price * qty)
         const newTotalQty: number = cartState.totalQty - qty
         dispatch({ 
             items: cartState.items.filter(item => item.product.id !== product.id),
@@ -47,7 +42,7 @@ const CartProduct = (props: CartProductProps) => {
             newItems[index].qty--
         }
         
-        const [newAmount, newTotalQty] = [amount - (parseFloat(product.price) * items[index].qty), (totalQty - 1)]
+        const [newAmount, newTotalQty] = [amount - (product.price * items[index].qty), (totalQty - 1)]
         console.log(newAmount, newTotalQty)
         return dispatch({
             items: newItems,
@@ -70,7 +65,7 @@ const CartProduct = (props: CartProductProps) => {
                     <p className='text-black text-opacity-50 line-clamp-5 overflow-hidden h-4/6 block'>{description}</p>
 
                     <div className="product_content_utilities text-2xl flex justify-between h-1/6 ">
-                        <span className='block font-semibold'>${price}</span>
+                        <span className='block font-semibold'>${price.toFixed(2)}</span>
                         <div className='flex gap-x-3 items-center'>
                             <BiTrash className='mr-3 text-black text-opacity-50 hover:cursor-pointer' onClick={removeProduct} />
                             <BiMinusCircle className='hover:cursor-pointer' onClick={decreaseProduct} />

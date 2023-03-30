@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { BsTruck } from "react-icons/bs";
 import { BiMap } from "react-icons/bi";
-import { CartContext } from '../App';
+import { CartContext } from '../../context/CartContext';
 
 
 const CartInvoice = () => {

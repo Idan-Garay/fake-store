@@ -1,11 +1,11 @@
 import React, { useContext } from "react"
-import { CartContext, CartDispatchContext } from "./App"
-import { Cart, CartProductType } from "./cart/Index"
+import { CartContext, CartDispatchContext } from "../context/CartContext"
+import { Cart, CartProductType } from "../context/CartContext"
 
 export type ProductType = {
   id: string
   title: string
-  price: string
+  price: number
   category: string
   description: string
   image: string
@@ -14,7 +14,7 @@ export type ProductType = {
 export const productDefaultValue: ProductType = {
   id: "id1",
   title: "Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport",
-  price: "$599",
+  price: 599,
   image: "#",
   description: "description 1",
   category: "all"
@@ -35,7 +35,7 @@ export const addProduct = (product: ProductType, items: Array<CartProductType>, 
   }
 
   const newTotalQty: number = items.reduce((prev: number, currItem: CartProductType) => currItem.qty + prev, 0)
-  const newAmount: number = items.reduce((prev: number, currItem: CartProductType) => parseFloat(currItem.product.price) * currItem.qty + prev, 0)
+  const newAmount: number = items.reduce((prev: number, currItem: CartProductType) => currItem.product.price * currItem.qty + prev, 0)
   console.log(newAmount, newTotalQty)
   dispatch({
     items: newItems,
@@ -49,7 +49,7 @@ export default function Product({ product }: ProductProps) {
   const cartState = useContext(CartContext)
   const pName =
     product.title || "Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport";
-  const price = product.price || "$599";
+  const price = product.price || 599;
   const pImg = product.image || "#";
 
   return (
@@ -59,7 +59,7 @@ export default function Product({ product }: ProductProps) {
         <div className="cursor-pointer h-2/6 w-full text-white flex-col p-1">
           <h4 className="h-2/6 truncate">{pName}</h4>
           <div className="flex flex-nowrap justify-between h-4/6">
-            <h6>${price}</h6>
+            <h6>${price.toFixed(2)}</h6>
             <button
               onClick={() => {
                 addProduct(product, [...cartState.items] as Array<CartProductType>, dispatch);

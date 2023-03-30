@@ -1,32 +1,7 @@
 import React, { useContext, useReducer } from 'react'
-import { CartContext } from '../App';
-import { ProductType } from '../product';
+import { Cart, CartContext, cartDefaultValue } from '../../context/CartContext';
 import CartInvoice from './CartInvoice';
 import CartProduct from './CartProduct';
-
-export interface CartProductType {
-  product: ProductType
-  qty: number
-}
-
-export interface Cart {
-  items: Array<CartProductType>
-  totalQty: number
-  amount: number
-}
-
-export const cartDefaultValue: Cart = {
-  items: [],
-  totalQty: 0,
-  amount: 0,
-}
-
-export const useCart = () => {
-  // a custom hook using useReducer
-  return useReducer((current: Cart, update: Partial<Cart>) => ({
-    ...current, ...update
-  }), cartDefaultValue)
-}
 
 const CartPage = () => {
   const cartState = useContext(CartContext)

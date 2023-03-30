@@ -30,7 +30,6 @@ export const useCart = () => {
 
 const CartPage = () => {
   const cartState = useContext(CartContext)
-  console.log(cartState)
 
   return <main className="h-full w-full flex px-5 pt-3 gap-x-6">
     <section className="left_products w-8/12 flex flex-col ">

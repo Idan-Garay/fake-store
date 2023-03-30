@@ -8,27 +8,7 @@ interface CartProductProps {
     cartProduct: CartProductType
 }
 
-export const decreaseProduct = (product: ProductType, items: Array<CartProductType>, dispatch: React.Dispatch<Partial<Cart>>) => {
-    const index = items.findIndex(item => item.product.id === product.id)
 
-    if (index == -1) {
-        console.log(items[1].product.id === product.id)
-
-        return
-    }
-
-    const newItems = [...items]
-    if (newItems[index].qty === 1) {
-        newItems.splice(index, 1)
-        console.log(newItems)
-    } else {
-        newItems[index].qty--
-    }
-
-    return dispatch({
-        items: newItems
-    })
-}
 
 
 
@@ -39,7 +19,41 @@ const CartProduct = (props: CartProductProps) => {
     const dispatch = useContext(CartDispatchContext) as React.Dispatch<Partial<Cart>>
 
     const removeProduct = () => {
-        dispatch({ items: cartState.items.filter(item => item.product.id !== product.id) })
+        const {qty} = props.cartProduct
+        const newAmount: number = cartState.amount - (parseFloat(product.price) * qty)
+        const newTotalQty: number = cartState.totalQty - qty
+        dispatch({ 
+            items: cartState.items.filter(item => item.product.id !== product.id),
+            amount: newAmount,
+            totalQty: newTotalQty
+        })
+    }
+
+    const decreaseProduct = () => {
+        const {items, totalQty, amount} = cartState
+        const index = items.findIndex(item => item.product.id === product.id)
+    
+        if (index == -1) {
+            console.log(items[1].product.id === product.id)
+    
+            return
+        }
+    
+        const newItems = [...items]
+        if (newItems[index].qty === 1) {
+            newItems.splice(index, 1)
+            console.log(newItems)
+        } else {
+            newItems[index].qty--
+        }
+        
+        const [newAmount, newTotalQty] = [amount - (parseFloat(product.price) * items[index].qty), (totalQty - 1)]
+        console.log(newAmount, newTotalQty)
+        return dispatch({
+            items: newItems,
+            amount: newAmount,
+            totalQty: newTotalQty,
+        })
     }
 
     return (
@@ -59,7 +73,7 @@ const CartProduct = (props: CartProductProps) => {
                         <span className='block font-semibold'>${price}</span>
                         <div className='flex gap-x-3 items-center'>
                             <BiTrash className='mr-3 text-black text-opacity-50 hover:cursor-pointer' onClick={removeProduct} />
-                            <BiMinusCircle className='hover:cursor-pointer' onClick={() => { decreaseProduct(product, cartState.items, dispatch) }} />
+                            <BiMinusCircle className='hover:cursor-pointer' onClick={decreaseProduct} />
                             <span className='block text-black text-opacity-50 text-lg min-w-8 text-center '>{props.cartProduct.qty}</span>
                             <BiPlusCircle className='hover:cursor-pointer' onClick={() => { addProduct(product, cartState.items, dispatch) }} />
                         </div>

@@ -34,8 +34,13 @@ export const addProduct = (product: ProductType, items: Array<CartProductType>, 
     newItems[index].qty++
   }
 
+  const newTotalQty: number = items.reduce((prev: number, currItem: CartProductType) => currItem.qty + prev, 0)
+  const newAmount: number = items.reduce((prev: number, currItem: CartProductType) => parseFloat(currItem.product.price) * currItem.qty + prev, 0)
+  console.log(newAmount, newTotalQty)
   dispatch({
-    items: newItems
+    items: newItems,
+    totalQty: newTotalQty,
+    amount: parseFloat(newAmount.toFixed(2))
   })
 };
 

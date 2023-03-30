@@ -1,29 +1,27 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { BsTruck } from "react-icons/bs";
 import { BiMap } from "react-icons/bi";
+import { CartContext } from '../App';
 
 
 const CartInvoice = () => {
+    const cartState = useContext(CartContext)
+
     return (
         <>
             <div className="border-b h-2/6 min-h-2/6 py-3 px-6">
                 <h3 className='font-bold'>Order Summary</h3>
                 <ul className='mt-3'>
-                    <li className="text-black text-opacity-50 flex gap-x-3">
-                        <span className="block">x2</span>
-                        <span className="block flex-grow">Acne-Fighting Toner</span>
-                        <span className="block">$14,25</span>
-                    </li>
-                    <li className="text-black text-opacity-50 flex gap-x-3">
-                        <span className="block">x2</span>
-                        <span className="block flex-grow">Acne-Fighting Toner</span>
-                        <span className="block">$14,25</span>
-                    </li>
-                    <li className="text-black text-opacity-50 flex gap-x-3">
-                        <span className="block">x2</span>
-                        <span className="block flex-grow">Acne-Fighting Toner</span>
-                        <span className="block">$14,25</span>
-                    </li>
+                    {
+                        cartState.items.map((item) => (
+                            <li className="text-black text-opacity-50 flex gap-x-3">
+                                <span className="block">x{item.qty}</span>
+                                <span className="block flex-grow">{item.product.title}</span>
+                                <span className="block">${parseFloat(item.product.price).toFixed(2)}</span>
+                            </li>
+                        ))
+                    }
+                    
                 </ul>
             </div>
             <div className="border-b min-h-1/6 py-3 px-6">
@@ -50,11 +48,11 @@ const CartInvoice = () => {
                 <ul className='mt-3'>
                     <li className="text-black text-opacity-50 flex gap-x-3">
                         <span className="block flex-grow">Amount</span>
-                        <span className="block">$14,25</span>
+                        <span className="block">${cartState.amount.toFixed(2)}</span>
                     </li>
                     <li className="text-black text-opacity-50 flex gap-x-3">
                         <span className="block flex-grow">Tax</span>
-                        <span className="block">$5,00</span>
+                        <span className="block">${(cartState.amount*0.12).toFixed(2)}</span>
                     </li>
                 </ul>
             </div>
@@ -63,12 +61,12 @@ const CartInvoice = () => {
                     <ul className=''>
                         <li className=" flex gap-x-3">
                             <span className="block flex-grow">Order Total</span>
-                            <span className="block">$14,25</span>
+                            <span className="block">${(cartState.amount + 20 + (cartState.amount*0.12)).toFixed(2)}</span>
                         </li>
                     </ul>
                 </div>
                 <div className=" py-3 px-6 h-2/3 flex flex-col  place-content-end gap-y-3">
-                    <input type="search" name="" id="coupon" placeholder='Add Coupon' className='rounded text-center h-full p-2 ' />
+                    {/* <input type="search" name="" id="coupon" placeholder='Add Coupon' className='rounded text-center h-full p-2 ' /> */}
                     <button className=' bg-indigo-500 text-white'>Checkout</button>
                 </div>
             </div>

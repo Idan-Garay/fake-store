@@ -17,7 +17,7 @@ const CartInvoice = () => {
                             <li className="text-black text-opacity-50 flex gap-x-3">
                                 <span className="block">x{item.qty}</span>
                                 <span className="block flex-grow">{item.product.title}</span>
-                                <span className="block">${parseFloat(item.product.price).toFixed(2)}</span>
+                                <span className="block">${item.product.price.toFixed(2)}</span>
                             </li>
                         ))
                     }

@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAuthAccount } from '../../context/AuthContext'
+import { AuthAccountDispatchContext, AuthAccountContext, AuthAccount } from '../../context/AuthContext'
 
 const LoginPage = () => {
-    const [authAccountState, dispatch] = useAuthAccount()
+    const authAccountState = useContext(AuthAccountContext)
+    const authAccountDispatch = useContext(AuthAccountDispatchContext) as React.Dispatch<Partial<AuthAccount>>
     const { email, password } = authAccountState
     const [load, setLoad] = useState(false)
     
@@ -26,11 +27,11 @@ const LoginPage = () => {
                 <h1 className='text-3xl font-semibold text-center'>Fake Z</h1>
                 <div className="input-group flex flex-col">
                     <label htmlFor="email">Email</label>
-                    <input type="email" onChange={e => dispatch({ email: e.target.value })} defaultValue={email} name="email" id="email" className='border rounded h-9 p-2' />
+                    <input type="email" onChange={e => authAccountDispatch({ email: e.target.value })} defaultValue={email} name="email" id="email" className='border rounded h-9 p-2' />
                 </div>
                 <div className="input-group flex flex-col">
                     <label htmlFor="password">Password</label>
-                    <input type="password" onChange={e => dispatch({ password: e.target.value })} defaultValue={password} name="password" id="password" className='border rounded h-9 p-2' />
+                    <input type="password" onChange={e => authAccountDispatch({ password: e.target.value })} defaultValue={password} name="password" id="password" className='border rounded h-9 p-2' />
                 </div>
                 <div className="input-group flex items-center gap-x-3">
                     <input type="checkbox" name="remember me" id="remember_me" className='border rounded' />

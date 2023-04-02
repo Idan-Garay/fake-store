@@ -13,7 +13,7 @@ export default function () {
 
   return (
     <nav>
-      <div className="flex justify-between">
+      <div className="flex justify-between pt-2">
         <div>
           <NavLink to="/">
             <span className="cursor-pointer font-thin text-5xl ml-5 mt-5 border-l border-b p-2">

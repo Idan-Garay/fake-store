@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { BiCog } from 'react-icons/bi'
+import { AuthAccount, AuthAccountDispatchContext } from "../context/AuthContext";
 
 export default function () {
   const [toggle, setToggle] = useState(false)
   const navigate = useNavigate()
+  const authAccountDispatch = useContext(AuthAccountDispatchContext) as React.Dispatch<Partial<AuthAccount>>
+  
   const handleLogout = () => {
     // add authenticated false
+    authAccountDispatch({authenticated: false, email: "", password: ""})
     navigate("/login")
     setToggle(false)
   }

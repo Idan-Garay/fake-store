@@ -1,19 +1,26 @@
 import React, { useContext } from 'react'
 import { BsTruck } from "react-icons/bs";
 import { BiMap } from "react-icons/bi";
-import { CartContext } from '../../context/CartContext';
+import { CartContext, CartProductType } from '../../context/CartContext';
 
+interface CartInvoiceProps {
+    items: Array<CartProductType>
+}
 
-const CartInvoice = () => {
-    const cartState = useContext(CartContext)
-
+const CartInvoice = ({items}: CartInvoiceProps) => {
+    const amount = items.reduce((prevVal, currVal) => {
+        return prevVal + (currVal.qty * currVal.product.price)
+    }, 0)
+    const quantity = items.reduce((prevVal, currVal) => {
+        return prevVal + currVal.qty
+    }, 0)
     return (
         <>
             <div className="border-b h-2/6 min-h-2/6 py-3 px-6">
                 <h3 className='font-bold'>Order Summary</h3>
                 <ul className='mt-3'>
                     {
-                        cartState.items.map((item) => (
+                        items.map((item) => (
                             <li className="text-black text-opacity-50 flex gap-x-3">
                                 <span className="block">x{item.qty}</span>
                                 <span className="block flex-grow">{item.product.title}</span>
@@ -48,11 +55,11 @@ const CartInvoice = () => {
                 <ul className='mt-3'>
                     <li className="text-black text-opacity-50 flex gap-x-3">
                         <span className="block flex-grow">Amount</span>
-                        <span className="block">${cartState.amount.toFixed(2)}</span>
+                        <span className="block">${amount.toFixed(2)}</span>
                     </li>
                     <li className="text-black text-opacity-50 flex gap-x-3">
                         <span className="block flex-grow">Tax</span>
-                        <span className="block">${(cartState.amount*0.12).toFixed(2)}</span>
+                        <span className="block">${(amount*0.12).toFixed(2)}</span>
                     </li>
                 </ul>
             </div>
@@ -61,7 +68,7 @@ const CartInvoice = () => {
                     <ul className=''>
                         <li className=" flex gap-x-3">
                             <span className="block flex-grow">Order Total</span>
-                            <span className="block">${(cartState.amount + 20 + (cartState.amount*0.12)).toFixed(2)}</span>
+                            <span className="block">${(amount + 20 + (amount*0.12)).toFixed(2)}</span>
                         </li>
                     </ul>
                 </div>

@@ -8,7 +8,7 @@ interface CartProductProps {
 }
 
 const CartProduct = (props: CartProductProps) => {
-    const { product } = props.cartProduct
+    const { product, selected } = props.cartProduct
     const { title, price, description, image } = product
     const cartState = useContext(CartContext)
     const dispatch = useContext(CartDispatchContext) as React.Dispatch<Partial<Cart>>
@@ -54,7 +54,7 @@ const CartProduct = (props: CartProductProps) => {
     return (
         <div className="products max-h-[18rem] border-b py-3 flex flex-col">
             <div className="product_header pl-3 pt-3 flex items-center gap-x-3 h-1/5">
-                <input type="checkbox" name="" id="product_header" />
+                <input type="checkbox" name="" id="product_header" checked={selected}/>
                 <label htmlFor="product_header"><p className="text-xl">{title}</p></label>
             </div>
 

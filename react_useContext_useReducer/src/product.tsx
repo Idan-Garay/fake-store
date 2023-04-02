@@ -29,7 +29,7 @@ export const addProduct = (product: ProductType, items: Array<CartProductType>, 
   const newItems = [...items]
 
   if (index === -1) {
-    newItems.push({ product: product, qty: 1 })
+    newItems.push({ product: product, qty: 1, selected: true })
   } else {
     newItems[index].qty++
   }

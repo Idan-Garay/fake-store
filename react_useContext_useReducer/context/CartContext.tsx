@@ -2,6 +2,7 @@ import React, { useReducer } from 'react'
 import { ProductType } from '../src/product'
 
 export interface CartProductType {
+    selected: boolean
     product: ProductType
     qty: number
 }

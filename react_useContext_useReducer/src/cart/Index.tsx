@@ -32,7 +32,7 @@ const CartPage = () => {
     </section>
 
     <section className="right_invoice self-start flex flex-col w-4/12 h-5/6 border">
-      <CartInvoice />
+      <CartInvoice items={cartState.items.filter(item => item.selected)} />
     </section>
   </main>
 

@@ -1,7 +1,10 @@
 import React, { Dispatch, useEffect, useState } from 'react'
-import ProductGallery from './productGallery'
-import Tabs from './tabs'
-import { ProductType } from './product'
+import ProductGallery from './ProductGallery'
+import Tabs from './Tabs'
+import { ProductType } from './Product'
+import { changeCategory } from './features/ProductGallery/productGallerySlice'
+import { useAppDispatch, useAppSelector } from './app/hooks'
+import { RootState } from './app/store'
 
 async function fetchData<Type>(url: string, setState: Dispatch<React.SetStateAction<Type>>) {
     const res = await fetch(url)
@@ -11,14 +14,17 @@ async function fetchData<Type>(url: string, setState: Dispatch<React.SetStateAct
 }
 
 const IndexPage = () => {
+    const category = useAppSelector((state:RootState) => state.productGallery.category)
+    const dispatch = useAppDispatch()
+
     const [products, setProducts] = useState<Array<ProductType>>([])
-    const [category, setCategory] = useState<string>("all")
-    const filteredProducts: Array<ProductType> = products.length > 0 ? products.filter((prod) => category.toLowerCase() === "all" || prod.category.toLowerCase() === category.toLowerCase()) : []
+    // const [category, setCategory] = useState<string>("all")
+    const filteredProducts: Array<ProductType> = products.length > 0 ? products.filter((prod) => prod.category.toLowerCase() === "all" || prod.category.toLowerCase() === category.toLowerCase()) : []
     const [categories, setCategories] = useState<Array<string>>([])
 
     const categoryClick = (category = "all") => {
+        dispatch(changeCategory(category))
         console.log(category)
-        setCategory(category)
     }
 
     console.log(filteredProducts)

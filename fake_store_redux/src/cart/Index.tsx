@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { ProductType } from '../product'
+import { ProductType } from '../Product'
 
 export interface CartProductType {
     selected: boolean

@@ -12,6 +12,7 @@ const LoginPage = () => {
 
     const handleLogin = async (): Promise<void> => {
         setLoad(true)
+        authAccountDispatch({authenticated: true})
         // validation
         // ----------
         // navigate

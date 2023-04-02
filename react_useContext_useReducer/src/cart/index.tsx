@@ -1,5 +1,5 @@
-import React, { useContext, useReducer } from 'react'
-import { Cart, CartContext, cartDefaultValue } from '../../context/CartContext';
+import React, { useContext } from 'react'
+import { CartContext } from '../../context/CartContext';
 import CartInvoice from './CartInvoice';
 import CartProduct from './CartProduct';
 

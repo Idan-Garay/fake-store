@@ -1,9 +1,7 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { BsTruck } from "react-icons/bs";
 import { BiMap } from "react-icons/bi";
 import { CartProductType } from '../features/Cart/cartSlice';
-import { useAppSelector } from '../app/hooks';
-import { RootState } from '../app/store';
 
 interface CartInvoiceProps {
     items: Array<CartProductType>
@@ -73,7 +71,6 @@ const CartInvoice = ({items}: CartInvoiceProps) => {
                     </ul>
                 </div>
                 <div className=" py-3 px-6 h-2/3 flex flex-col  place-content-end gap-y-3">
-                    {/* <input type="search" name="" id="coupon" placeholder='Add Coupon' className='rounded text-center h-full p-2 ' /> */}
                     {
                         amount === 0
                         ?<button className=' bg-indigo-300 text-white border-none' disabled>Checkout</button>

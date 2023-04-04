@@ -1,5 +1,6 @@
-import React, { useContext } from "react"
-import { Cart, CartProductType } from "./cart/Index"
+import React from "react"
+import { Cart, CartProductType, addItem } from "./features/Cart/cartSlice"
+import { useAppDispatch } from "./app/hooks"
 
 export type ProductType = {
   id: string
@@ -44,12 +45,15 @@ export const addProduct = (product: ProductType, items: Array<CartProductType>, 
 };
 
 export default function Product({ product }: ProductProps) {
-  // const dispatch = useContext(CartDispatchContext) as React.Dispatch<Partial<Cart>>
-  // const cartState = useContext(CartContext)
   const pName =
     product.title || "Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport";
   const price = product.price || 599;
   const pImg = product.image || "#";
+  const dispatch = useAppDispatch()
+
+  const addProduct = () => {
+    dispatch(addItem(product))
+  }
 
   return (
     <div className="min-h-[20rem] min-w-[18rem] h-32 w-full flex flex-wrap relative">
@@ -60,9 +64,7 @@ export default function Product({ product }: ProductProps) {
           <div className="flex flex-nowrap justify-between h-4/6">
             <h6>${price.toFixed(2)}</h6>
             <button
-              onClick={() => {
-                // addProduct(product, [...cartState.items] as Array<CartProductType>, dispatch);
-              }}
+              onClick={addProduct}
               className="self-start h-full w-1/4"
             >
               <svg

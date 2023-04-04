@@ -1,17 +1,10 @@
 import React, { Dispatch, useEffect, useState } from 'react'
 import ProductGallery from './ProductGallery'
 import Tabs from './Tabs'
-import { ProductType } from './Product'
 import { changeCategory, fetchCategories, fetchProducts } from './features/ProductGallery/productGallerySlice'
 import { useAppDispatch, useAppSelector } from './app/hooks'
 import { RootState } from './app/store'
-
-async function fetchData<Type>(url: string, setState: Dispatch<React.SetStateAction<Type>>) {
-    const res = await fetch(url)
-    const data = await res.json()
-    console.log(data)
-    setState(data)
-}
+import { ProductType } from './Product'
 
 const IndexPage = () => {
     const category = useAppSelector((state:RootState) => state.productGallery.category)

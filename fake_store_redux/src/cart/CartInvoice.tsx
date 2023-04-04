@@ -74,7 +74,11 @@ const CartInvoice = ({items}: CartInvoiceProps) => {
                 </div>
                 <div className=" py-3 px-6 h-2/3 flex flex-col  place-content-end gap-y-3">
                     {/* <input type="search" name="" id="coupon" placeholder='Add Coupon' className='rounded text-center h-full p-2 ' /> */}
-                    <button className=' bg-indigo-500 text-white'>Checkout</button>
+                    {
+                        amount === 0
+                        ?<button className=' bg-indigo-300 text-white border-none' disabled>Checkout</button>
+                        :<button className=' bg-indigo-500 text-white'>Checkout</button>
+                    }
                 </div>
             </div>
         </>

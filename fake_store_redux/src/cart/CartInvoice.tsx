@@ -10,8 +10,9 @@ interface CartInvoiceProps {
 }
 
 const CartInvoice = ({items}: CartInvoiceProps) => {
-
-    const amount = useAppSelector((state:RootState) => state.cart.amount)
+    const amount = items.reduce((prevVal, currVal) => {
+        return prevVal + (currVal.qty * currVal.product.price)
+    }, 0)
 
     return (
         <>

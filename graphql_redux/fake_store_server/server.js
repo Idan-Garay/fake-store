@@ -13,12 +13,18 @@ var root = {
     const res = await fetch('https://fakestoreapi.com/products/' + id)
     const data = await res.json()
     return data
+  },
+  products: async () => {
+    const res = await fetch('https://fakestoreapi.com/products')
+    const data = await res.json()
+    return data
   }
 };
 
 var app = express();
 
 app.use(cors({
+  // origin: '*',
   origin: true,
   credentials: true
 }))

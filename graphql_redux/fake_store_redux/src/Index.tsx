@@ -1,4 +1,4 @@
-import React, { Dispatch, useEffect, useState } from 'react'
+import React, {useEffect} from 'react'
 import ProductGallery from './ProductGallery'
 import Tabs from './Tabs'
 import { changeCategory, fetchCategories, fetchProducts } from './features/ProductGallery/productGallerySlice'

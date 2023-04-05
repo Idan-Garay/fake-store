@@ -1,6 +1,6 @@
 export const schemaString = `
     type Product {
-        id: String!
+        id: Int!
         title: String!
         price: Float!
         category: String!

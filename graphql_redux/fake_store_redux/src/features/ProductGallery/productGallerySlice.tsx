@@ -2,11 +2,31 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { ProductType } from '../../Product'
 
-export const fetchProducts = createAsyncThunk('productGallery/fetchProducts', async () => {
-    const response = await fetch('https://fakestoreapi.com/products')
-    const data = await response.json()
+const query = `
+    {
+        products {
+            id
+            title
+            price
+            image
+        }
+    }
+`
 
-    return data
+export const fetchProducts = createAsyncThunk('productGallery/fetchProducts', async () => {
+    const response = await fetch('http://localhost:4000/graphql', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+            query
+        })
+    })
+    const result = await response.json()
+    console.log(result['data']['products'])
+    return result['data']['products']
 })
 
 export const fetchCategories = createAsyncThunk('productGallery/fetchCategories', async () => {

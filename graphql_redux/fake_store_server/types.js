@@ -25,8 +25,9 @@ export const schemaString = `
 
 
     type Query {
-        product(id: String!): Product
+        product(id: Int!): Product
         products: [Product]!
+        categories: [String]!
     }
 
 `

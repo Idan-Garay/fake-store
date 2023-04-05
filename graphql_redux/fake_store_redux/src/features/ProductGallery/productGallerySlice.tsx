@@ -8,6 +8,8 @@ const query = `
             id
             title
             price
+            category
+            description
             image
         }
     }
@@ -30,9 +32,19 @@ export const fetchProducts = createAsyncThunk('productGallery/fetchProducts', as
 })
 
 export const fetchCategories = createAsyncThunk('productGallery/fetchCategories', async () => {
-    const response = await fetch('http://fakestoreapi.com/products/categories')
-    const data = await response.json()
-    return data
+    const response = await fetch('http://localhost:4000/graphql', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+            query: `{categories}`
+        })
+    })
+    const result = await response.json()
+    console.log(result)
+    return result['data']['categories']
 })
 
 interface ProductGalleryState {

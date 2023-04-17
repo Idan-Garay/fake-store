@@ -5,6 +5,10 @@ import { BiCog } from 'react-icons/bi'
 export default function () {
   const [toggle, setToggle] = useState(false)
 
+  const handleLogout = () => {
+    
+  }
+
   return (
     <nav>
       <div className="flex justify-between pt-2">
@@ -20,13 +24,13 @@ export default function () {
             <div className="flex gap-2 cursor-pointer items-center gap-x-9 relative">
               <NavLink className="hover:text-gray-300" to="/cart">Cart</NavLink>
               <BiCog className="hover:text-gray-300" size={25} onClick={() => setToggle(!toggle)} />
-              {/* {
+              {
                 toggle
                   ? <ul className="border absolute right-0 top-9 bg-indigo-400 hover:bg-indigo-500 text-white px-2 py-1 rounded">
                     <li onClick={handleLogout}>Log out</li>
                   </ul>
                   : null
-              } */}
+              }
             </div>
           </div>
         </div>

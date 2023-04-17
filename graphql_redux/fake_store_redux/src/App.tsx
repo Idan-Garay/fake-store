@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import CartPage from './cart/Index'
 import IndexPage from './Index'
 import IndexLayout from './IndexLayout'
+import LoginPage from './login/Index'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Route index element={<IndexPage/>} />
           <Route path='cart' element={<CartPage/>}/>
         </Route>
+        <Route path='/login' element={<LoginPage/>}/>
       </Routes>
     </div>
   )

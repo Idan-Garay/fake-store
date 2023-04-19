@@ -23,11 +23,11 @@ export const schemaString = `
         amount: Int!
     }
 
-
     type Query {
         product(id: Int!): Product
         products: [Product]!
         categories: [String]!
+        authToken(email: String!, password: String!): String!
     }
 
 `

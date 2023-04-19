@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
-import { login } from '../features/Auth/authSlice'
+import { login, loginThunk } from '../features/Auth/authSlice'
 
 const LoginPage = () => {
   const authState = useAppSelector(state => state.auth)
@@ -15,7 +15,10 @@ const LoginPage = () => {
 
     if (emailInput.current && passwordInput.current) {
       setLoad(true)
-      dispatch(login({ email: emailInput.current.value, password: passwordInput.current.value }))
+      dispatch(loginThunk({
+        email: emailInput.current.value, 
+        password: passwordInput.current.value
+      }))
       await new Promise(resolve => setTimeout(resolve, 2000))
       // validation
       // ----------

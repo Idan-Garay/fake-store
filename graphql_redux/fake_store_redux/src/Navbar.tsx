@@ -1,12 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { BiCog } from 'react-icons/bi'
+import { useAppDispatch } from "./app/hooks";
+import { logout } from "./features/Auth/authSlice";
 
 export default function () {
   const [toggle, setToggle] = useState(false)
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const handleLogout = () => {
-    
+    dispatch(logout())
+    navigate("/login")
   }
 
   return (
@@ -21,7 +26,7 @@ export default function () {
         </div>
         <div className="py-5 px-5 space-y-6">
           <div className="flex items-center space-x-4 gap-5">
-            <div className="flex gap-2 cursor-pointer items-center gap-x-9 relative">
+            <div className="flex gap-2 b-1 cursor-pointer items-center gap-x-9 relative">
               <NavLink className="hover:text-gray-300" to="/cart">Cart</NavLink>
               <BiCog className="hover:text-gray-300" size={25} onClick={() => setToggle(!toggle)} />
               {
